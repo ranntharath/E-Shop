@@ -9,7 +9,6 @@ function RootLayout() {
     <Navbar/>
     <Outlet/>
     <Footer/>
-
     </>
   )
 }
