@@ -308,9 +308,7 @@ export default function ProductPage() {
               <button className="p-4 border-2 border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
                 <HeartIcon className="h-5 w-5" />
               </button>
-              <button className="p-4 border-2 border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
-                <Share2Icon className="h-5 w-5" />
-              </button>
+             
             </div>
 
             {/* Features */}
