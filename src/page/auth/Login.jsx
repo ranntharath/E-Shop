@@ -1,88 +1,127 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../redux/services/authSlice";
-
+import { useFormik } from "formik";
+import * as Yup from "yup";
 function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
   const navigator = useNavigate();
 
-  const [login, {isLoading, isError}] = useLoginMutation()
+  const [login, { isLoading, isError }] = useLoginMutation();
 
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      const response = await login(formData).unwrap();
-      if (response) {
-        localStorage.setItem("accessToken", response.token);
-        navigator("/");
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      password: Yup.string()
+        .min(6, "Password must be at least 8 characters")
+        .required("Password is required"),
+    }),
+    onSubmit: async (values) => {
+      try {
+        const response = await login(values).unwrap();
+        if (response) {
+          localStorage.setItem("accessToken", response.token);
+          navigator("/");
+        }
+      } catch (error) {
+        console.error("Verification failed", error);
       }
-    } catch (error) {
-      console.error("Verification failed", error);
-    }
-  }
+    },
+  });
+
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-2xl font-semibold text-center text-letter-color mb-2">
-            Create Account
+          <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+            Login to Your Account
           </h2>
-          <p className="text-center text-sm text-descipton-color mb-6">
-            Join us and start your journey today.
-          </p>
 
           <form
-            className="space-y-4"
+            className="space-y-5"
             autoComplete="off"
-            onSubmit={handleSubmit}
+            onSubmit={formik.handleSubmit}
           >
-
+            {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-letter-color">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Email
               </label>
               <input
-                onChange={handleChange}
-                type="email"
+                id="email"
                 name="email"
+                type="email"
                 placeholder="Email"
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-color"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="mt-2 w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-primary-color transition"
               />
+              {formik.touched.email && formik.errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formik.errors.email}
+                </p>
+              )}
             </div>
 
+            {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-letter-color">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <input
-                onChange={handleChange}
+                id="password"
+                name="password"
                 type="password"
                 placeholder="Password"
-                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 autoComplete="new-password"
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-color"
+                className="mt-2 w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-color focus:border-primary-color transition"
               />
+              {formik.touched.password && formik.errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formik.errors.password}
+                </p>
+              )}
             </div>
 
-
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-2 mt-2 rounded-xl bg-primary-color text-white font-semibold hover:bg-primary-dark-color transition-colors"
+              disabled={isLoading}
+              className={`w-full py-3 mt-3 rounded-xl text-white font-semibold shadow-md transition-all duration-200 ${
+                isLoading
+                  ? "bg-primary-dark-color cursor-not-allowed"
+                  : "bg-primary-color hover:bg-primary-dark-color"
+              }`}
             >
-              Login
+              {isLoading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                </div>
+              ) : (
+                "Login"
+              )}
             </button>
 
-            <p className="text-sm text-center text-descipton-color mt-4">
-              Do not have an account yet ?{" "}
+            {/* Register Link */}
+            <p className="text-sm text-center text-gray-500 mt-4">
+              Don't have an account?{" "}
               <Link
-                to={"/auth/register"}
+                to="/auth/register"
                 className="text-primary-color font-medium hover:underline"
               >
                 Register
@@ -91,7 +130,6 @@ function Login() {
           </form>
         </div>
       </div>
-      );
     </>
   );
 }
