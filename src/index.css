@@ -1,1 +1,31 @@
 @import "tailwindcss";
+@theme {
+  --color-primary-color: #fc634c;
+  --color-primary-dark-color: #e2503a;
+  --color-descipton-color: #6b7280;
+  --color-letter-color: #4c4c4c;
+}
+* {
+  font-family: "Poppins", sans-serif;
+}
+h1 {
+  @apply text-4xl   md:text-5xl;
+}
+
+.btn {
+  @apply bg-primary-color text-white rounded-sm px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-3  md:text-xs xl:text-xl hover:bg-primary-dark-color;
+}
+
+.section {
+  @apply px-4 sm:px-8 md:px-16 lg:px-32  pb-8 sm:pb-12 lg:pb-20;
+}
+/* Hide scrollbar for Webkit browsers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}

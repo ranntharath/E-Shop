@@ -5,6 +5,8 @@ import RootLayout from "./layouts/RootLayout";
 import DetailPage from "./page/user/DetailPage";
 import ContactPage from "./page/user/ContactPage";
 import AboutPage from "./page/user/AboutPage";
+import Register from "./page/auth/Register";
+import Login from "./page/auth/Login";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/about" element={<AboutPage/>} />
         <Route path="detail/:id" element={<DetailPage/>}/>
       </Route>
+      <Route path="/auth/register" element={<Register/>}/>
+      <Route path="/auth/login" element={<Login/>}/>
     </Routes>
   );
 }
