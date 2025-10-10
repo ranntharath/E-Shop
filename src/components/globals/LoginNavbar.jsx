@@ -2,7 +2,8 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-
+import { BsCart2 } from "react-icons/bs";
+import { useGetUserProfileQuery } from "../../redux/services/userSlice";
 const menus = [
   { id: 1, label: "Home", path: "/" },
   { id: 2, label: "Product", path: "/product" },
@@ -10,7 +11,7 @@ const menus = [
   { id: 4, label: "Contact", path: "/contact" },
 ];
 
-const Navbar = () => {
+const LoginNavbar = ({ profile }) => {
   const [isMobile, setIsMobile] = useState(false);
   function handleMobile() {
     setIsMobile(!isMobile);
@@ -26,7 +27,7 @@ const Navbar = () => {
               return (
                 <li key={e.id}>
                   <NavLink
-                  onClick={()=>setIsMobile(false)}
+                    onClick={() => setIsMobile(false)}
                     to={e.path}
                     className={({ isActive }) =>
                       isActive ? "text-primary-color" : "text-letter-color"
@@ -39,9 +40,15 @@ const Navbar = () => {
             })}
           </ul>
           <div className="flex justify-center items-center gap-4">
-              <button className="bg-primary-color px-4 py-1.5 rounded-md text-white hover:bg-primary-dark-color cursor-pointer">
-                <NavLink to={"/auth/login"}>Login</NavLink>
-              </button>
+            <BsCart2 className="text-xl cursor-pointer" />
+            <img
+              className="w-7 h-7 rounded-full cursor-pointer"
+              src={`${
+                profile?.user?.avatar ||
+                " https://img.icons8.com/?size=100&id=7820&format=png&color=000000"
+              }`}
+              alt=""
+            />
 
             <div className="block lg:hidden">
               {!isMobile ? (
@@ -54,15 +61,16 @@ const Navbar = () => {
         </nav>
         <nav className="block lg:hidden">
           <ul
-            className={`flex flex-col gap-2 justify-center items-center transition-all duration-300 ease-in-out overflow-hidden ${isMobile ? "max-h-96" : "max-h-0"
-              }`}
+            className={`flex flex-col gap-2 justify-center items-center transition-all duration-300 ease-in-out overflow-hidden ${
+              isMobile ? "max-h-96" : "max-h-0"
+            }`}
           >
             {menus.map((e) => {
               return (
                 <li key={e.id}>
                   <NavLink
-                     onClick={()=>setIsMobile(false)}
                     to={e.path}
+                    onClick={() => setIsMobile(false)}
                     className={({ isActive }) =>
                       isActive ? "text-primary-color" : "text-letter-color"
                     }
@@ -79,4 +87,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default LoginNavbar;

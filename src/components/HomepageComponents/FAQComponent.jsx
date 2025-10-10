@@ -44,7 +44,7 @@ export default function FAQComponent() {
                         >
                             <div className="flex justify-between items-center">
                                 <h3
-                                    className={`text-lg font-medium ${isOpen ? "text-[#f25c47] font-semibold" : "text-gray-800"
+                                    className={`text-lg font-medium ${isOpen ? "text-[#f25c47] " : "text-gray-800"
                                         }`}
                                 >
                                     {faq.question}

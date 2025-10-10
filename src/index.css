@@ -15,7 +15,12 @@ h1 {
 .btn {
   @apply bg-primary-color text-white rounded-sm px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-3  md:text-xs xl:text-xl hover:bg-primary-dark-color;
 }
-
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
 .section {
   @apply px-4 sm:px-8 md:px-16 lg:px-32  pb-8 sm:pb-12 lg:pb-20;
 }

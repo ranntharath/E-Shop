@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const ProductCard = ({ id, image, name, description, rate, price }) => {
   return (
     <>
-      <div className="h-full border border-gray-100 shadow-sm hover:shadow-md hover:border-primary-color transition rounded-2xl overflow-hidden bg-white">
+      <div className="h-full border border-gray-100 shadow-sm hover:shadow-md hover:border-primary-color transition-all duration-150 rounded-2xl hover:scale-[1.01] overflow-hidden bg-white ">
         {/* Image */}
         <div>
           <img
@@ -29,8 +29,8 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
             </p>
 
             <p
-              className="line-clamp-2 text-sm my-2 hover:text-primary-color hover:underline transition-colors"
-              style={{ color: "var(--color-letter-color)" }}
+              className="line-clamp-2 text-sm my-2 text-letter-color"
+              
             >
               {description ?? "Description about product"}
             </p>
@@ -50,7 +50,7 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
               className="flex-1 text-xs px-3 py-2 rounded-xl font-medium shadow-sm hover:shadow-md transition bg-primary-color text-white"
 
             >
-              Add to Cart
+              Add Cart
             </button>
 
             <Link

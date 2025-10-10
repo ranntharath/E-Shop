@@ -2,7 +2,11 @@ import { CiMobile2, CiHeadphones, CiHome, CiKeyboard } from "react-icons/ci";
 import { IoWatchOutline, IoTvOutline } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa6";
 import FAQComponent from "../../components/HomepageComponents/FAQComponent";
-import headphone from '../../assets/headphone.png'
+import iphone from "../../assets/iphone.png";
+import { useGetProductQuery } from "../../redux/services/productSlice";
+import NewProduct from "../../components/HomepageComponents/NewProduct";
+import TrendingProducts from "../../components/HomepageComponents/TrendingProducts";
+import BestSale from "../../components/HomepageComponents/BestSale";
 const categories = [
   { icon: <IoTvOutline />, label: "Computer" },
   { icon: <CiMobile2 />, label: "Mobile" },
@@ -11,11 +15,17 @@ const categories = [
   { icon: <CiKeyboard />, label: "Keyboard" },
   { icon: <CiHome />, label: "Home" },
 ];
+
+function TrendingProduct({ pro }) {}
+
 const HomePage = () => {
+  const { data: pro, isLoading } = useGetProductQuery();
+
+  console.log(pro);
 
   return (
     <>
-      <section id="hiro" className="section bg-gray-200 pt-10">
+      <section id="hiro" className="section bg-gray-50 pt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-4">
           <div className="text-center md:text-start">
             <h1>Find Your Quality Products</h1>
@@ -27,14 +37,18 @@ const HomePage = () => {
             <button className="btn">Shop Now</button>
           </div>
           <div className="flex justify-center items-center">
-            <img src={headphone} alt="hiro-image" />
+            <img
+              className=" hover:scale-[1.005] transition-all ease-in duration-150 o"
+              src="https://www.greycom.com.cy/image/cache/catalog/2025%20Products/iPhone%2017/iPhone%2017%20Pro%20Max/iPhone_17_Pro_Max_iPhone_17_Pro_Deep_Blue_Combo_Screen__USEN-500x500.jpg"
+              alt="hiro-image"
+            />
           </div>
         </div>
       </section>
       <section className="section mt-20">
         <div className="flex flex-col md:flex-row gap-5 justify-center items-stretch">
           {/* Left Big Card */}
-          <div className="w-full md:w-[60%] bg-[#ffece7] rounded-xl overflow-hidden  shadow-md">
+          <div className="w-full md:w-[60%] bg-[#ffece7] rounded-xl overflow-hidden  shadow-md hover:scale-[1.01] transition-all duration-300 ease-out">
             <div className="grid grid-cols-1 md:grid-cols-2 h-full">
               {/* Text Content */}
               <div className="flex flex-col justify-center p-6   lg:py-20">
@@ -61,7 +75,7 @@ const HomePage = () => {
           {/* Right Two Small Cards */}
           <div className="w-full md:w-[40%] flex flex-col gap-5">
             {/* Card 1 */}
-            <div className="bg-[#e0f2ff] rounded-xl overflow-hidden h-full shadow-sm">
+            <div className="bg-[#e0f2ff] rounded-xl overflow-hidden h-full shadow-sm hover:scale-[1.01] transition-all duration-300 ease-out">
               <div className="grid grid-cols-1 md:grid-cols-2 h-full">
                 <div className="flex flex-col justify-center p-6 md:p-3 lg:p-6">
                   <h2 className="text-xl text-gray-800 font-semibold">
@@ -83,7 +97,7 @@ const HomePage = () => {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-[#fff8dc] rounded-xl overflow-hidden h-full shadow-sm">
+            <div className="bg-[#fff8dc] rounded-xl overflow-hidden h-full shadow-sm hover:scale-[1.01] transition-all duration-300 ease-out">
               <div className="grid grid-cols-1 md:grid-cols-2 h-full">
                 <div className="flex flex-col justify-center p-6 md:p-3 lg:p-6">
                   <h2 className="text-xl font-semibold text-gray-800">
@@ -110,16 +124,14 @@ const HomePage = () => {
         <h2 className="text-2xl mb-10 text-letter-color font-bold">
           New Product
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 justify-center items-center gap-3 md:gap-6">
-          {/* products new */}
-        </div>
+        <NewProduct pro={pro} />
       </section>
       <section className="section">
         <div className="flex flex-col lg:flex-row justify-center items-start gap-10">
-          <div className="w-full lg:w-1/3 relative">
+          <div className="w-full lg:w-1/3 relative hover:scale-[1.01] transition-all duration-300 ease-out">
             <img
               className="w-full object-cover rounded-3xl shadow-lg"
-              src="	http://localhost:5174/src/assets/image/samsung.png"
+              src={iphone}
               alt="Samsung Limited"
             />
             <div className="absolute top-0  text-center px-6 py-8">
@@ -139,6 +151,7 @@ const HomePage = () => {
             </p>
             <div className="flex flex-col gap-5">
               {/* trending product */}
+              <TrendingProducts pro={pro}/>
             </div>
           </div>
         </div>
@@ -168,7 +181,7 @@ const HomePage = () => {
           <div className="grid grid-cols-2 h-full">
             {/* Text Content */}
             <div className="flex flex-col justify-center p-6 md:p-10 lg:py-10">
-              <h2 className="text-xl md:text-2xl  font-semibold text-gray-800">
+              <h2 className="text-3xl md:text-2xl  font-semibold text-white">
                 Save big on select items
               </h2>
               <p className="text-description-color my-6 line-clamp-2 text-xs md:text-[16px] text-descipton-color">
@@ -196,8 +209,12 @@ const HomePage = () => {
             <FaArrowRight />
           </p>
         </div>
-        <div className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide">
-        {/* best sale    */}
+        <div className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide p-2">
+          {/* best sale    */}
+             <BestSale  pro={pro}/>
+          
+         
+
         </div>
       </section>
       <section className="section bg-gray-100 pt-20">
