@@ -18,14 +18,14 @@ const TrendingProductCard = ({ id, image, name, description, rate, price }) => {
 
       {/* Product Info */}
       <div className="w-2/3 space-y-1">
-        <p className="text-sm text-gray-600 font-medium line-clamp-1">
+        <p className="text-sm text-gray-800 font-medium line-clamp-1">
           {name ?? "Product Name"}
         </p>
         <p  className="block  text-gray-500 line-clamp-2">
           {description ?? "Description about the product"}
         </p>
 
-        <p className="text-sm font-bold text-primary-color">{`$${price ?? "00.00"}`}</p>
+        <p className=" font-bold text-primary-color">{`$${price ?? "00.00"}`}</p>
       </div>
     </div>
   );

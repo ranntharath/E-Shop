@@ -22,8 +22,8 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
         <div className="p-3 flex flex-col justify-between h-[calc(100%-9rem)]">
           <div>
             <p
-              className="tracking-[7px] text-descipton-color line-clamp-1 uppercase text-xs font-medium"
-              style={{ color: "var(--color-descipton-color)" }}
+              className="tracking-[3px] text-descipton-color line-clamp-1 uppercase  font-medium"
+             
             >
               {name ?? "Name"}
             </p>

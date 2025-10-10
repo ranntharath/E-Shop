@@ -1,57 +1,108 @@
-
-import React from "react"
-import { useGetProductQuery } from "../../redux/services/productSlice"
-import ProductCard from "../../components/globals/ProductCard"
-import LoadingComponent from "../../components/globals/LoadingComponent"
+import React, { useState } from "react";
+import {
+  useGetCategoriesQuery,
+  useGetProductQuery,
+} from "../../redux/services/productSlice";
+import ProductCard from "../../components/globals/ProductCard";
+import LoadingComponent from "../../components/globals/LoadingComponent";
 
 export default function ProductPage() {
-  const { data: product, error, isLoading } = useGetProductQuery()
-  
-  if (isLoading) {
-    return (
-      <LoadingComponent/>
-    )
+  const [activecategory, setActiveCategory] = useState("All");
+  const [searchValue, setSearchValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { data: product, isError, isLoading } = useGetProductQuery();
+  const { data: category } = useGetCategoriesQuery();
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    if (value === "") setSearchQuery("");
+  };
+
+  const filterProducts = product?.products?.filter((pro) => {
+    const matchSearch =
+      activecategory === "" ||
+      pro.name?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchCategory =
+      activecategory === "All" || pro.category === activecategory;
+    return matchCategory && matchSearch;
+  });
+
+  if (isLoading == true) {
+    return <LoadingComponent message={"Loading Products"} />;
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
         <div className="text-center p-6 bg-white rounded-lg shadow-lg">
           <p className="text-red-500 font-medium">Error loading products.</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className=" bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      {/* Header with Logo */}
-      
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
         {/* Page Title */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-[var(--color-letter-color)] mb-2">Our Products</h2>
-          <p className="text-[var(--color-description-color)]">
+          <h2 className="text-3xl font-bold text-letter-color mb-2">
+            Our Products
+          </h2>
+          <p className="text-descipton-color">
             Discover our curated collection of premium tech products
           </p>
+          <div className="flex justify-start items-center gap-2 mt-3">
+            <input
+              onChange={handleInputChange}
+              placeholder="Search..."
+              type="text"
+              className="border border-gray-400 px-2  p-1 w-80  rounded-md focus:outline-1 outline-primary-color focus:border-primary-color"
+            />
+            <button
+              onClick={() => setSearchQuery(searchValue)}
+              className="bg-gray-300  p-1 rounded-md cursor-pointer"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+        <div className="flex justify-start items-center p-1 gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide mb-5">
+          {["All", ...(category?.categories || [])].map((e, index) => {
+            return (
+              <button
+                onClick={() => setActiveCategory(e)}
+                key={index}
+                className={` shadow-sm py-1 px-5 rounded-md ${
+                  activecategory === e ? "bg-primary-color text-white" : ""
+                }`}
+                value={e}
+              >
+                {e}
+              </button>
+            );
+          })}
         </div>
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {product?.products?.map(pro=>{
-            return <ProductCard key={pro?.id} id={pro?.id} 
-            name={pro?.name}
-            image={pro?.images[0]}
-            price={pro?.price}
-            description={pro?.description}
-
-            />
+          {filterProducts?.map((pro, index) => {
+            return (
+              <ProductCard
+                key={pro?.id || index}
+                id={pro?.id}
+                name={pro?.name}
+                image={pro?.images[0]}
+                price={pro?.price}
+                description={pro?.description}
+              />
+            );
           })}
         </div>
       </main>
-
     </div>
-  )
+  );
 }

@@ -1,7 +1,5 @@
-
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -17,21 +15,29 @@ export const productApi = createApi({
   }),
   endpoints: (builder) => ({
     getProduct: builder.query({
-        query: (data) =>({
-            url: '/products',
-            method: 'GET',
-        })
+      query: () => ({
+        url: "/products",
+        method: "GET",
+      }),
     }),
-    addProduct:builder.mutation({
-        query:(data)=>({
-            url:'/products',
-            method:'POST',
-            body:data,
-        })
-    })
+    addProduct: builder.mutation({
+      query: (data) => ({
+        url: "/products",
+        method: "POST",
+        body: data,
+      }),
+    }),
 
-
- 
+    getCategories: builder.query({
+      query: () => ({
+        url: '/categories',
+        method: "GET"
+      })
+    }),
   }),
 });
-export const { useGetProductQuery,useAddProductMutation } = productApi;
+export const {
+  useGetProductQuery,
+  useAddProductMutation,
+  useGetCategoriesQuery,
+} = productApi;
