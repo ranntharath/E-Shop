@@ -1,8 +1,10 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const TrendingProductCard = ({ id, image, name, description, rate, price }) => {
   return (
+    <Link to={`/products/${id}`}>
     <div className="flex gap-5 border border-gray-200 hover:border-primary-color hover:scale-[1.005] transition-all duration-300 ease-out rounded-2xl p-4 shadow-sm hover:shadow-md ">
       {/* Product Image */}
       <div className="w-1/3 flex justify-center items-center">
@@ -28,6 +30,7 @@ const TrendingProductCard = ({ id, image, name, description, rate, price }) => {
         <p className=" font-bold text-primary-color">{`$${price ?? "00.00"}`}</p>
       </div>
     </div>
+    </Link>
   );
 };
 

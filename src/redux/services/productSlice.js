@@ -34,10 +34,16 @@ export const productApi = createApi({
         method: "GET"
       })
     }),
+    getProductById: builder.query({
+      query: (id)=>({
+        url:`products/${id}`
+      })
+    })
   }),
 });
 export const {
   useGetProductQuery,
   useAddProductMutation,
   useGetCategoriesQuery,
+  useGetProductByIdQuery
 } = productApi;

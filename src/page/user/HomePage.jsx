@@ -16,12 +16,11 @@ const categories = [
   { icon: <CiHome />, label: "Home" },
 ];
 
-function TrendingProduct({ pro }) {}
+
 
 const HomePage = () => {
   const { data: pro, isLoading } = useGetProductQuery();
-
-  console.log(pro);
+  console.log(pro)
 
   return (
     <>

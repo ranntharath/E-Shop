@@ -9,8 +9,8 @@ function TrendingProducts({ pro }) {
     <div className="flex flex-col gap-5">
       {trendingProducts?.slice(0, 3).map((e,index) => (
         <TrendingProductCard
-          key={e?.id || index}
-          id={e?.id}
+          key={e?._id || index}
+          id={e?._id}
           name={e?.name}
           image={e?.images[0]}
           price={e?.price}

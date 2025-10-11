@@ -11,9 +11,9 @@ function BestSale({ pro }) {
       {/* products new */}
       {bestSaleProduct.map((e, index) => {
         return (
-          <div key={e?.id || index} className="min-w-[210px] max-w-[210px]">
+          <div key={e?._id || index} className="min-w-[210px] max-w-[210px]">
             <ProductCard
-              id={e?.id}
+              id={e?._id}
               name={e?.name}
               image={e?.images[0]}
               price={e?.price}

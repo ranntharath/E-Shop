@@ -54,7 +54,7 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
             </button>
 
             <Link
-              to={`/product/${id}`}
+              to={`/products/${id}`}
               className="flex-1 text-xs px-3 py-2 rounded-xl font-medium text-center border hover:shadow-sm transition"
               style={{
                 borderColor: "var(--color-primary-color)",

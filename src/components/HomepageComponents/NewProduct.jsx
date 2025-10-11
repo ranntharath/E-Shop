@@ -7,8 +7,8 @@ function NewProduct({ pro }) {
       {pro?.products?.slice(0,5).map((e, index) => {
         return (
           <ProductCard
-            key={e?.id || index}
-            id={e?.id}
+            key={e?._id || index}
+            id={e?._id}
             name={e?.name}
             image={e?.images[0]}
             price={e?.price}

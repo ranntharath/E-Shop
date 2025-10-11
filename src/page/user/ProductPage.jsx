@@ -92,8 +92,8 @@ export default function ProductPage() {
           {filterProducts?.map((pro, index) => {
             return (
               <ProductCard
-                key={pro?.id || index}
-                id={pro?.id}
+                key={pro?._id || index}
+                id={pro?._id}
                 name={pro?.name}
                 image={pro?.images[0]}
                 price={pro?.price}
