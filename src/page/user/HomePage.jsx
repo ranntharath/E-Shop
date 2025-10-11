@@ -20,7 +20,6 @@ const categories = [
 
 const HomePage = () => {
   const { data: pro, isLoading } = useGetProductQuery();
-  console.log(pro)
 
   return (
     <>

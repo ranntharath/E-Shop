@@ -141,13 +141,7 @@ export default function DetailPage() {
     reviews: 127,
     description:
       "Experience unparalleled comfort with our premium cotton t-shirt. Crafted from 100% organic cotton, this essential piece combines timeless design with modern sustainability.",
-    features: [
-      "Made from 100% organic cotton",
-      "Pre-shrunk for perfect fit",
-      "Reinforced shoulder seams",
-      "Tagless for comfort",
-      "Machine washable",
-    ],
+    
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     inStock: true,
     images: [
@@ -157,7 +151,13 @@ export default function DetailPage() {
       "/premium-black-cotton-t-shirt-detail-close-up.jpg",
     ],
   };
-
+  const features = [
+      "Made from 100% organic cotton",
+      "Pre-shrunk for perfect fit",
+      "Reinforced shoulder seams",
+      "Tagless for comfort",
+      "Machine washable",
+    ]
   const relatedProducts =
     products?.products?.filter((e) =>
       e?.category.toLowerCase().includes(pro?.product?.category) && e?._id != pro?.product?._id
@@ -308,7 +308,7 @@ export default function DetailPage() {
                 Key Features
               </h3>
               <ul className="space-y-2">
-                {product.features.map((feature, index) => (
+                {features.map((feature, index) => (
                   <li
                     key={index}
                     className="flex items-start gap-2 text-sm text-gray-600"
