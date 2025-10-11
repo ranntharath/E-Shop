@@ -7,6 +7,7 @@ import ContactPage from "./page/user/ContactPage";
 import AboutPage from "./page/user/AboutPage";
 import Register from "./page/auth/Register";
 import Login from "./page/auth/Login";
+import Dashboard from "./page/admin/Dashboard";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       </Route>
       <Route path="/auth/register" element={<Register/>}/>
       <Route path="/auth/login" element={<Login/>}/>
+      <Route path="/dashboard" element={<Dashboard/>}/>
     </Routes>
   );
 }

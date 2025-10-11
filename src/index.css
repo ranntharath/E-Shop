@@ -5,6 +5,9 @@
   --color-descipton-color: #6b7280;
   --color-letter-color: #4c4c4c;
 }
+
+
+@import "./globals.css";
 * {
   font-family: "Poppins", sans-serif;
 }

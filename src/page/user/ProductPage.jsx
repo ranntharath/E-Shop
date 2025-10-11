@@ -1,4 +1,3 @@
-
 import React from "react"
 import { useGetProductQuery } from "../../redux/services/productSlice"
 import ProductCard from "../../components/globals/ProductCard"
@@ -6,7 +5,6 @@ import LoadingComponent from "../../components/globals/LoadingComponent"
 
 export default function ProductPage() {
   const { data: product, error, isLoading } = useGetProductQuery()
-  
   if (isLoading) {
     return (
       <LoadingComponent/>
