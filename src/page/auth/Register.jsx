@@ -45,6 +45,7 @@ function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      den
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
         <h2 className="text-2xl font-semibold text-center text-letter-color mb-2">
           Create Account
