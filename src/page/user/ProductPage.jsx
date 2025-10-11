@@ -50,7 +50,7 @@ export default function ProductPage() {
         {/* Page Title */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-letter-color mb-2">
-            Our Products
+            Our Products helo
           </h2>
           <p className="text-descipton-color">
             Discover our curated collection of premium tech products
