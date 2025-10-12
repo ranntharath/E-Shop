@@ -40,7 +40,9 @@ const LoginNavbar = ({ profile }) => {
             })}
           </ul>
           <div className="flex justify-center items-center gap-4">
+            <Link to={'/cart'}>
             <BsCart2 className="text-xl cursor-pointer" />
+            </Link>
             <Link to={'/user/profile'}>
             <img
               className="w-7 h-7 rounded-full cursor-pointer object-fit-cover"

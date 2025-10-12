@@ -8,6 +8,7 @@ import AboutPage from "./page/user/AboutPage";
 import Register from "./page/auth/Register";
 import Login from "./page/auth/Login";
 import UserProfile from "./page/user/UserProfile";
+import CartPage from "./page/user/CartPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/contact" element={<ContactPage/>} />
         <Route path="/about" element={<AboutPage/>} />
         <Route path="/products/:id" element={<DetailPage/>}/>
+        <Route path="/cart" element={<CartPage/>}/>
       </Route>
       <Route path="/user/profile" element={<UserProfile/>}/>
       <Route path="/auth/register" element={<Register/>}/>
