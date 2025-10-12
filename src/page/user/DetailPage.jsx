@@ -8,6 +8,7 @@ import {
 } from "../../redux/services/productSlice";
 import LoadingComponent from "../../components/globals/LoadingComponent";
 import ProductCard from "../../components/globals/ProductCard";
+import { useAddToCartMutation } from "../../redux/services/cartSlice";
 
 const StarIcon = ({ filled, className = "" }) => (
   <svg
@@ -41,22 +42,6 @@ const HeartIcon = ({ className = "" }) => (
   </svg>
 );
 
-const Share2Icon = ({ className = "" }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-    />
-  </svg>
-);
-
 const MinusIcon = ({ className = "" }) => (
   <svg
     className={className}
@@ -69,22 +54,6 @@ const MinusIcon = ({ className = "" }) => (
       strokeLinejoin="round"
       strokeWidth={2}
       d="M20 12H4"
-    />
-  </svg>
-);
-
-const PlusIcon = ({ className = "" }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M12 4v16m8-8H4M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
     />
   </svg>
 );
@@ -123,44 +92,51 @@ const CheckIcon = ({ className = "" }) => (
 
 export default function DetailPage() {
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
 
   const { id } = useParams();
 
   const { data: pro, isLoading, isError } = useGetProductByIdQuery(id);
   const { data: products } = useGetProductQuery();
+  const [addtoCart, { isLoading: isAdding }] = useAddToCartMutation();
+
+  async function handleAddTocart() {
+    try {
+      if(quantity > pro?.product?.stock){
+        alert("out of stock")
+        return
+      }
+      const response = await addtoCart({ productId: pro?.product?._id, quantity }).unwrap();
+      if (response) {
+        alert("add success");
+      }
+    } catch (error) {
+      alert(error.data.error)
+    }
+  }
 
   if (isLoading) return <LoadingComponent message={"Loading Product"} />;
-
-  const product = {
-    name: "Premium Cotton T-Shirt",
-    price: 89.0,
-    originalPrice: 129.0,
-    rating: 4.8,
-    reviews: 127,
-    description:
-      "Experience unparalleled comfort with our premium cotton t-shirt. Crafted from 100% organic cotton, this essential piece combines timeless design with modern sustainability.",
-    
-    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-    inStock: true,
-    images: [
-      "/premium-black-cotton-t-shirt-front-view.jpg",
-      "/premium-black-cotton-t-shirt-back-view.jpg",
-      "/premium-black-cotton-t-shirt-side-view.jpg",
-      "/premium-black-cotton-t-shirt-detail-close-up.jpg",
-    ],
-  };
+  if (isError)
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+        <h1 className="text-3xl font-bold mb-2">Oops!</h1>
+        <p className="text-gray-600 mb-4">
+          The product you are looking for cannot be found.
+        </p>
+      </div>
+    );
   const features = [
-      "Made from 100% organic cotton",
-      "Pre-shrunk for perfect fit",
-      "Reinforced shoulder seams",
-      "Tagless for comfort",
-      "Machine washable",
-    ]
+    "Made from 100% organic cotton",
+    "Pre-shrunk for perfect fit",
+    "Reinforced shoulder seams",
+    "Tagless for comfort",
+    "Machine washable",
+  ];
   const relatedProducts =
-    products?.products?.filter((e) =>
-      e?.category.toLowerCase().includes(pro?.product?.category) && e?._id != pro?.product?._id
+    products?.products?.filter(
+      (e) =>
+        e?.category.toLowerCase().includes(pro?.product?.category) &&
+        e?._id != pro?.product?._id
     ) || [];
 
   const decreaseQuantity = () => {
@@ -258,7 +234,7 @@ export default function DetailPage() {
                   </span>
                 ) : (
                   <span className="text-sm font-medium text-green-600">
-                    In Stock
+                    {pro?.product?.stock} In Stock 
                   </span>
                 )}
               </div>
@@ -293,7 +269,7 @@ export default function DetailPage() {
 
             {/* Action Buttons */}
             <div className="flex gap-3 mb-6">
-              <button className="flex-1 bg-primary-color text-white py-4 px-6 rounded-lg font-semibold cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+              <button onClick={handleAddTocart} className="flex-1 bg-primary-color text-white py-4 px-6 rounded-lg font-semibold cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
                 <ShoppingCartIcon className="h-5 w-5" />
                 Add to Cart
               </button>
