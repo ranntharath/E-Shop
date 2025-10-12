@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
@@ -41,14 +41,16 @@ const LoginNavbar = ({ profile }) => {
           </ul>
           <div className="flex justify-center items-center gap-4">
             <BsCart2 className="text-xl cursor-pointer" />
+            <Link to={'/user/profile'}>
             <img
-              className="w-7 h-7 rounded-full cursor-pointer"
+              className="w-7 h-7 rounded-full cursor-pointer object-fit-cover"
               src={`${
                 profile?.user?.avatar ||
                 " https://img.icons8.com/?size=100&id=7820&format=png&color=000000"
               }`}
               alt=""
             />
+            </Link>
 
             <div className="block lg:hidden">
               {!isMobile ? (

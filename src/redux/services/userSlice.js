@@ -20,7 +20,16 @@ export const userApi = createApi({
         method: "GET",
       }),
     }),
+
+    updateUserProfile: builder.mutation({
+      query: (data)=>({
+        url: '/users/profile',
+        method: "PUT",
+        body:data
+      }),
+      invalidatesTags: ['profile']
+    })
   }),
 });
 
-export const {useGetUserProfileQuery} = userApi
+export const {useGetUserProfileQuery, useUpdateUserProfileMutation} = userApi
