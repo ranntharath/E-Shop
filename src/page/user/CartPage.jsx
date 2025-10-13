@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Cart from '../../components/cartPageComponents/Cart'
+import { useGetCartQuery } from '../../redux/services/cartSlice'
+import LoadingComponent from '../../components/globals/LoadingComponent'
 
 function CartPage() {
-    
+    const {data:carts, isLoading, isError} = useGetCartQuery()
+    // console.log(carts)
+  if(isLoading)return <LoadingComponent message={"Loading Carts"}/>
   return (
     <>
-      <section className="section text-color-text">
+      <section className="section text-color-text mt-5">
     <div className="flex flex-col md:flex-row justify-between items-center p-2">
       <div className="w-full md:w-fit mb-4 md:mb-0">
         <h2 className="font-bold">Shopping Cart</h2>
@@ -39,7 +43,17 @@ function CartPage() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-10">
       <div className="lg:col-span-2 space-y-4">
         {/* product card */}
-        <Cart/>
+        {carts?.cart?.items?.map(item=>{
+          return  <Cart
+          key={item.product._id}
+          id={item.product._id}
+          image={item.product.images[0]}
+          name={item.product.name}
+          description={item.product.description}
+          price={item.product.price}
+          qty={item.quantity}
+        />
+        })}
       </div>
       {/* <div
        

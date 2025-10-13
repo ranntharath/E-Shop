@@ -26,7 +26,14 @@ export const cartApi = createApi({
             url: "/cart",
             method: "GET"
         })
+    }),
+    updateCart:builder.mutation({
+        query: (data)=>({
+            url: '/cart',
+            method: "PUT",
+            body: data
+        })
     })
   }),
 });
-export const { useAddToCartMutation, useGetCartQuery } = cartApi;
+export const { useAddToCartMutation, useGetCartQuery, useUpdateCartMutation } = cartApi;
