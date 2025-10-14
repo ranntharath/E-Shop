@@ -26,8 +26,8 @@ const HomePage = () => {
       <section id="hiro" className="section bg-gray-50 pt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-4">
           <div className="text-center md:text-start">
-            <h1>Find Your Quality Products</h1>
-            <p className="text-descipton-color my-4 line-clamp-3">
+            <h1 className="font-bold">Find Your Quality <span className="text-primary-color block mt-2">Products</span></h1>
+            <p className="text-descipton-color text-xl my-4 line-clamp-3">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet odio
               nostrum quidem sint exercitationem laudantium culpa, quaerat
               inventore distinctio quos!

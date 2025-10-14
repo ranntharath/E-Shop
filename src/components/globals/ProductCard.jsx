@@ -1,8 +1,23 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAddToCartMutation } from "../../redux/services/cartSlice";
 
 const ProductCard = ({ id, image, name, description, rate, price }) => {
+  const [addtoCart, {isLoading}] = useAddToCartMutation()
+  async function handleAddToCart() {
+
+    try{
+      const response = await addtoCart({productId:id, quantity:1}).unwrap()
+      if(response){
+        alert('addedd to cart')
+      } 
+    }catch(error){
+      alert(error.data.error)
+    }
+  }
+
+
   return (
     <>
       <div className="h-full border border-gray-100 shadow-sm hover:shadow-md hover:border-primary-color transition-all duration-150 rounded-2xl hover:scale-[1.01] overflow-hidden bg-white ">
@@ -46,7 +61,8 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
 
           {/* Buttons */}
           <div className="mt-4 flex items-center justify-between gap-2">
-            <button
+            <button onClick={handleAddToCart}
+            disabled={isLoading}
               className="flex-1 text-xs px-3 py-2 rounded-xl font-medium shadow-sm hover:shadow-md transition bg-primary-color text-white"
 
             >

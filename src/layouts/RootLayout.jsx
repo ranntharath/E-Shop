@@ -16,25 +16,25 @@ function RootLayout() {
 
   if (!token)
     return (
-      <>
+      <div className="w-full max-w-[2000px] mx-auto">
         <Navbar />
         <main>
           <Outlet />
         </main>
         <Footer />
-      </>
+      </div>
     );
 
   if (isLoading) return <LoadingComponent />;
 
   return (
-    <>
+    <div className="w-full max-w-[2000px] mx-auto">
       <LoginNavbar profile={data} />
       <main>
         <Outlet />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 export default RootLayout;

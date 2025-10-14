@@ -269,7 +269,7 @@ export default function DetailPage() {
 
             {/* Action Buttons */}
             <div className="flex gap-3 mb-6">
-              <button onClick={handleAddTocart} className="flex-1 bg-primary-color text-white py-4 px-6 rounded-lg font-semibold cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+              <button onClick={handleAddTocart} disabled={isAdding} className="flex-1 bg-primary-color text-white py-4 px-6 rounded-lg font-semibold cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
                 <ShoppingCartIcon className="h-5 w-5" />
                 Add to Cart
               </button>

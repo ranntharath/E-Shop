@@ -19,20 +19,24 @@ export const cartApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ['cart']
     }),
 
     getCart: builder.query({
         query:()=>({
             url: "/cart",
             method: "GET"
-        })
+        }),
+        providesTags: ['cart']
+
     }),
     updateCart:builder.mutation({
         query: (data)=>({
             url: '/cart',
             method: "PUT",
             body: data
-        })
+        }),
+        invalidatesTags: ["cart"]
     })
   }),
 });

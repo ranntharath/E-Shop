@@ -28,7 +28,7 @@ const Navbar = () => {
                   <NavLink
                   onClick={()=>setIsMobile(false)}
                     to={e.path}
-                    className={({ isActive }) =>
+                    className={ ({ isActive }) =>
                       isActive ? "text-primary-color" : "text-letter-color"
                     }
                   >
@@ -67,7 +67,7 @@ const Navbar = () => {
                       isActive ? "text-primary-color" : "text-letter-color"
                     }
                   >
-                    {e.label}
+                    <p className="text-[18px] font-medium">{e.label}</p>
                   </NavLink>
                 </li>
               );

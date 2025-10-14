@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useGetCategoriesQuery,
   useGetProductQuery,
@@ -13,6 +13,11 @@ export default function ProductPage() {
 
   const { data: product, isError, isLoading } = useGetProductQuery();
   const { data: category } = useGetCategoriesQuery();
+
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -44,13 +49,13 @@ export default function ProductPage() {
   }
 
   return (
-    <div className=" bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      {/* Main Content */}
+   
+      // {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
         {/* Page Title */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-letter-color mb-2">
-            Our Products helo
+            Our Products
           </h2>
           <p className="text-descipton-color">
             Discover our curated collection of premium tech products
@@ -103,6 +108,5 @@ export default function ProductPage() {
           })}
         </div>
       </main>
-    </div>
   );
 }

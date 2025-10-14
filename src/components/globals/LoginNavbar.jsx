@@ -4,6 +4,7 @@ import { CiMenuBurger } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import { BsCart2 } from "react-icons/bs";
 import { useGetUserProfileQuery } from "../../redux/services/userSlice";
+import { useGetCartQuery } from "../../redux/services/cartSlice";
 const menus = [
   { id: 1, label: "Home", path: "/" },
   { id: 2, label: "Product", path: "/product" },
@@ -13,6 +14,9 @@ const menus = [
 
 const LoginNavbar = ({ profile }) => {
   const [isMobile, setIsMobile] = useState(false);
+
+  const {data} = useGetCartQuery()
+console.log(data)
   function handleMobile() {
     setIsMobile(!isMobile);
   }
@@ -33,7 +37,7 @@ const LoginNavbar = ({ profile }) => {
                       isActive ? "text-primary-color" : "text-letter-color"
                     }
                   >
-                    {e.label}
+                    <p className="text-[18px] font-medium">{e.label}</p>
                   </NavLink>
                 </li>
               );
@@ -41,7 +45,11 @@ const LoginNavbar = ({ profile }) => {
           </ul>
           <div className="flex justify-center items-center gap-4">
             <Link to={'/cart'}>
-            <BsCart2 className="text-xl cursor-pointer" />
+            <div className="relative p-1">
+                <BsCart2 className="text-xl cursor-pointer" />
+                <p className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full  flex justify-center items-center text-xs text-white   bg-red-400">{data?.cart?.items?.length}</p>
+            </div>
+            
             </Link>
             <Link to={'/user/profile'}>
             <img
