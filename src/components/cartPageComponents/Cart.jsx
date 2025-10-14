@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import QuantityBtn from "../globals/QuantityBtn";
-import { useUpdateCartMutation } from "../../redux/services/cartSlice";
+import { useRemoveProductCartMutation, useUpdateCartMutation } from "../../redux/services/cartSlice";
 
 function Cart({ id, image, name, description, price, qty }) {
   const [quantity, setQuantity] = useState(qty || 1);
   const [updateCart, { isUpdate }] = useUpdateCartMutation();
-
+  const [removeCart, {isLoading:isRemove}] = useRemoveProductCartMutation()
   useEffect(() => {
     const handler = setTimeout(() => {
       if (quantity !== qty) {
@@ -15,6 +15,23 @@ function Cart({ id, image, name, description, price, qty }) {
 
     return () => clearTimeout(handler); 
   }, [quantity]);
+  
+  const handleRemoveItem = async ()=>{
+
+    if(!id){
+      alert("invalited ID");
+      return
+    }
+    try{
+          const response = await removeCart(id).unwrap()
+    
+    }catch(error){
+      alert(error.data.error)
+    }
+
+    
+  }
+
   return (
     <div className="flex gap-5 border border-gray-200 transition-all duration-300 ease-out rounded-2xl p-4 shadow-sm hover:shadow-md relative">
   {/* Product Image */}
@@ -40,12 +57,14 @@ function Cart({ id, image, name, description, price, qty }) {
 
     <p className="text-gray-950">{`$${price ?? "00.00"}`}/piece</p>
 
-    {/* Quantity */}
+
     <div className="mt-2 flex items-center justify-between">
       <QuantityBtn quantity={quantity} setQuantity={setQuantity} />
 
-      {/* Remove Button */}
+
       <button
+      disabled={isRemove}
+      onClick={handleRemoveItem}
         className="text-red-500 text-sm font-medium hover:underline"
       >
         Remove X

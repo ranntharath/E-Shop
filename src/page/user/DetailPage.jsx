@@ -107,9 +107,7 @@ export default function DetailPage() {
         return
       }
       const response = await addtoCart({ productId: pro?.product?._id, quantity }).unwrap();
-      if (response) {
-        alert("add success");
-      }
+
     } catch (error) {
       alert(error.data.error)
     }

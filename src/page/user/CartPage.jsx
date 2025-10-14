@@ -57,7 +57,7 @@ function CartPage() {
           </div>
           {carts?.cart?.items?.length == 0 ? (
             <div className="text-center w-full col-span-3 h-full">
-              <p className="text-4xl my-10">HAVE NO PRODUCT IN CART</p>
+              <p className="text-4xl my-20 text-gray-400">HAVE NO PRODUCT IN CART</p>
             </div>
           ) : (
             <div className="bg-primary-light p-4 rounded-md space-y-6 border shadow border-slate-200 h-fit">

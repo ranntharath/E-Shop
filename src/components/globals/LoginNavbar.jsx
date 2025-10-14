@@ -15,8 +15,7 @@ const menus = [
 const LoginNavbar = ({ profile }) => {
   const [isMobile, setIsMobile] = useState(false);
 
-  const {data} = useGetCartQuery()
-console.log(data)
+  const { data } = useGetCartQuery();
   function handleMobile() {
     setIsMobile(!isMobile);
   }
@@ -44,22 +43,27 @@ console.log(data)
             })}
           </ul>
           <div className="flex justify-center items-center gap-4">
-            <Link to={'/cart'}>
-            <div className="relative p-1">
+            <Link to={"/cart"}>
+              <div className="relative p-1">
                 <BsCart2 className="text-xl cursor-pointer" />
-                <p className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full  flex justify-center items-center text-xs text-white   bg-red-400">{data?.cart?.items?.length}</p>
-            </div>
-            
+                {data?.cart?.items?.length != 0 ? (
+                  <p className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full  flex justify-center items-center text-xs text-white   bg-red-400">
+                    {data?.cart?.items?.length}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
             </Link>
-            <Link to={'/user/profile'}>
-            <img
-              className="w-7 h-7 rounded-full cursor-pointer object-fit-cover"
-              src={`${
-                profile?.user?.avatar ||
-                " https://img.icons8.com/?size=100&id=7820&format=png&color=000000"
-              }`}
-              alt=""
-            />
+            <Link to={"/user/profile"}>
+              <img
+                className="w-7 h-7 rounded-full cursor-pointer object-fit-cover"
+                src={`${
+                  profile?.user?.avatar ||
+                  " https://img.icons8.com/?size=100&id=7820&format=png&color=000000"
+                }`}
+                alt=""
+              />
             </Link>
 
             <div className="block lg:hidden">
