@@ -15,9 +15,8 @@ export default function ProductPage() {
   const { data: category } = useGetCategoriesQuery();
 
   useEffect(() => {
-  window.scrollTo(0, 0);
-}, []);
-
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -49,64 +48,61 @@ export default function ProductPage() {
   }
 
   return (
-   
-      // {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Page Title */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-letter-color mb-2">
-            Our Products
-          </h2>
-          <p className="text-descipton-color">
-            Discover our curated collection of premium tech products
-          </p>
-          <div className="flex justify-start items-center gap-2 mt-3">
-            <input
-              onChange={handleInputChange}
-              placeholder="Search..."
-              type="text"
-              className="border border-gray-400 px-2  p-1 w-80  rounded-md focus:outline-1 outline-primary-color focus:border-primary-color"
-            />
+    // {/* Main Content */}
+    <main className="max-w-7xl mx-auto px-6 py-8">
+      {/* Page Title */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold text-letter-color mb-2">
+          Our Products
+        </h2>
+        <p className="text-descipton-color">
+          Discover our curated collection of premium tech products
+        </p>
+        <div className="flex justify-start items-center gap-2 mt-3">
+          <input
+            onChange={handleInputChange}
+            placeholder="Search..."
+            type="text"
+            className="border border-gray-400 px-2  p-1   rounded-md focus:outline-1 outline-primary-color focus:border-primary-color"
+          />
+          <button
+            onClick={() => setSearchQuery(searchValue)}
+            className="bg-gray-300  p-1 rounded-md cursor-pointer"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      <div className="flex justify-start items-center p-1 gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide mb-5">
+        {["All", ...(category?.categories || [])].map((e, index) => {
+          return (
             <button
-              onClick={() => setSearchQuery(searchValue)}
-              className="bg-gray-300  p-1 rounded-md cursor-pointer"
+              onClick={() => setActiveCategory(e)}
+              key={index}
+              className={` shadow-sm py-1 px-5 rounded-md ${
+                activecategory === e ? "bg-primary-color text-white" : ""
+              }`}
+              value={e}
             >
-              Search
+              {e}
             </button>
-          </div>
-        </div>
-        <div className="flex justify-start items-center p-1 gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide mb-5">
-          {["All", ...(category?.categories || [])].map((e, index) => {
-            return (
-              <button
-                onClick={() => setActiveCategory(e)}
-                key={index}
-                className={` shadow-sm py-1 px-5 rounded-md ${
-                  activecategory === e ? "bg-primary-color text-white" : ""
-                }`}
-                value={e}
-              >
-                {e}
-              </button>
-            );
-          })}
-        </div>
+          );
+        })}
+      </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {filterProducts?.map((pro, index) => {
-            return (
-              <ProductCard
-                key={pro?._id || index}
-                id={pro?._id}
-                name={pro?.name}
-                image={pro?.images[0]}
-                price={pro?.price}
-                description={pro?.description}
-              />
-            );
-          })}
-        </div>
-      </main>
+      {/* Products Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 px-10 md:px-8">
+        {filterProducts?.map((pro, index) => (
+          <ProductCard
+            key={pro?._id || index}
+            id={pro?._id}
+            name={pro?.name}
+            image={pro?.images[0]}
+            price={pro?.price}
+            description={pro?.description}
+          />
+        ))}
+      </div>
+    </main>
   );
 }

@@ -22,7 +22,7 @@ const HomePage = () => {
   const { data: pro, isLoading } = useGetProductQuery();
 
   return (
-    <>
+    <main className="max-w-7xl mx-auto ">
       <section id="hiro" className="section bg-gray-50 pt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-4">
           <div className="text-center md:text-start">
@@ -218,7 +218,7 @@ const HomePage = () => {
       <section className="section bg-gray-100 pt-20">
         <FAQComponent />
       </section>
-    </>
+    </main>
   );
 };
 

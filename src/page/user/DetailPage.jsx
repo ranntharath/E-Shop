@@ -9,6 +9,7 @@ import {
 import LoadingComponent from "../../components/globals/LoadingComponent";
 import ProductCard from "../../components/globals/ProductCard";
 import { useAddToCartMutation } from "../../redux/services/cartSlice";
+import React from "react";
 
 const StarIcon = ({ filled, className = "" }) => (
   <svg
@@ -100,16 +101,22 @@ export default function DetailPage() {
   const { data: products } = useGetProductQuery();
   const [addtoCart, { isLoading: isAdding }] = useAddToCartMutation();
 
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   async function handleAddTocart() {
     try {
-      if(quantity > pro?.product?.stock){
-        alert("out of stock")
-        return
+      if (quantity > pro?.product?.stock) {
+        alert("out of stock");
+        return;
       }
-      const response = await addtoCart({ productId: pro?.product?._id, quantity }).unwrap();
-
+      const response = await addtoCart({
+        productId: pro?.product?._id,
+        quantity,
+      }).unwrap();
     } catch (error) {
-      alert(error.data.error)
+      alert(error.data.error);
     }
   }
 
@@ -232,7 +239,7 @@ export default function DetailPage() {
                   </span>
                 ) : (
                   <span className="text-sm font-medium text-green-600">
-                    {pro?.product?.stock} In Stock 
+                    {pro?.product?.stock} In Stock
                   </span>
                 )}
               </div>
@@ -267,7 +274,11 @@ export default function DetailPage() {
 
             {/* Action Buttons */}
             <div className="flex gap-3 mb-6">
-              <button onClick={handleAddTocart} disabled={isAdding} className="flex-1 bg-primary-color text-white py-4 px-6 rounded-lg font-semibold cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+              <button
+                onClick={handleAddTocart}
+                disabled={isAdding}
+                className="flex-1 bg-primary-color text-white py-4 px-6 rounded-lg font-semibold cursor-pointer hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+              >
                 <ShoppingCartIcon className="h-5 w-5" />
                 Add to Cart
               </button>

@@ -20,8 +20,8 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
 
   return (
     <>
-      <div className="h-full border border-gray-100 shadow-sm hover:shadow-md hover:border-primary-color transition-all duration-150 rounded-2xl hover:scale-[1.01] overflow-hidden bg-white ">
-        {/* Image */}
+      <div className="h-full   border border-gray-100 shadow-sm hover:shadow-md hover:border-primary-color transition-all duration-150 rounded-2xl hover:scale-[1.01] overflow-hidden bg-white ">
+        {/* Image */} 
         <div>
           <img
             className="w-full h-36 object-contain rounded-t-2xl bg-gray-50"
@@ -60,10 +60,10 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
           </div>
 
           {/* Buttons */}
-          <div className="mt-4 flex items-center justify-between gap-2">
+          <div className="mt-4 grid grid-cols-2 items-center justify-between gap-2">
             <button onClick={handleAddToCart}
             disabled={isLoading}
-              className="flex-1 text-xs px-3 py-2 rounded-xl font-medium shadow-sm hover:shadow-md transition bg-primary-color text-white"
+              className=" text-xs md:px-3 md:py-2 px-0.5 py-2 rounded-md font-medium shadow-sm hover:shadow-md transition bg-primary-color text-white"
 
             >
               Add Cart
@@ -71,7 +71,7 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
 
             <Link
               to={`/products/${id}`}
-              className="flex-1 text-xs px-3 py-2 rounded-xl font-medium text-center border hover:shadow-sm transition"
+              className=" text-xs md:px-3 md:py-2 px-0.5 py-2 rounded-md font-medium text-center border hover:shadow-sm transition"
               style={{
                 borderColor: "var(--color-primary-color)",
                 color: "var(--color-primary-color)",

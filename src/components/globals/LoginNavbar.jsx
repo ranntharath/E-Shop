@@ -57,7 +57,7 @@ const LoginNavbar = ({ profile }) => {
             </Link>
             <Link to={"/user/profile"}>
               <img
-                className="w-7 h-7 rounded-full cursor-pointer object-fit-cover"
+                className="w-7 h-7 rounded-full cursor-pointer object-fit-cover overflow-hidden"
                 src={`${
                   profile?.user?.avatar ||
                   " https://img.icons8.com/?size=100&id=7820&format=png&color=000000"
