@@ -11,7 +11,7 @@ function Cart({ id, image, name, description, price, qty }) {
       if (quantity !== qty) {
         updateCart({ productId: id, quantity }).unwrap().catch(console.error);
       }
-    }, 500); 
+    }, 300); 
 
     return () => clearTimeout(handler); 
   }, [quantity]);

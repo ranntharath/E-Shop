@@ -91,7 +91,7 @@ export default function ProductPage() {
       </div>
 
       {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 px-10 md:px-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 justify-center items-center gap-2  md:gap-3">
         {filterProducts?.map((pro, index) => (
           <ProductCard
             key={pro?._id || index}

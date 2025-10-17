@@ -7,6 +7,9 @@ import { useGetProductQuery } from "../../redux/services/productSlice";
 import NewProduct from "../../components/HomepageComponents/NewProduct";
 import TrendingProducts from "../../components/HomepageComponents/TrendingProducts";
 import BestSale from "../../components/HomepageComponents/BestSale";
+import hiro from "../../assets/hiro.png";
+import pc from '../../assets/pc.png'
+import samsung from '../../assets/samsung.png'
 const categories = [
   { icon: <IoTvOutline />, label: "Computer" },
   { icon: <CiMobile2 />, label: "Mobile" },
@@ -16,28 +19,28 @@ const categories = [
   { icon: <CiHome />, label: "Home" },
 ];
 
-
-
 const HomePage = () => {
   const { data: pro, isLoading } = useGetProductQuery();
 
   return (
-    <main className="max-w-7xl mx-auto ">
-      <section id="hiro" className="section bg-gray-50 pt-10">
+    <main className="max-w-7xl mx-auto  ">
+      <section id="hiro" className="section  pt-10 bg-gray-200 lg:rounded-xl lg:mt-5">
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-4">
           <div className="text-center md:text-start">
-            <h1 className="font-bold">Find Your Quality <span className="text-primary-color block mt-2">Products</span></h1>
+            <h1 className="font-bold">
+              Find Your Quality
+              <span className="text-primary-color block mt-2">Products</span>
+            </h1>
             <p className="text-descipton-color text-xl my-4 line-clamp-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet odio
-              nostrum quidem sint exercitationem laudantium culpa, quaerat
-              inventore distinctio quos!
+              Explore our range of premium products designed to deliver both
+              quality and lasting performance.
             </p>
             <button className="btn">Shop Now</button>
           </div>
           <div className="flex justify-center items-center">
             <img
-              className=" hover:scale-[1.005] transition-all ease-in duration-150 o"
-              src="https://www.greycom.com.cy/image/cache/catalog/2025%20Products/iPhone%2017/iPhone%2017%20Pro%20Max/iPhone_17_Pro_Max_iPhone_17_Pro_Deep_Blue_Combo_Screen__USEN-500x500.jpg"
+              className=" scale-[1.09] transition-all ease-in duration-150"
+              src={hiro}
               alt="hiro-image"
             />
           </div>
@@ -46,24 +49,24 @@ const HomePage = () => {
       <section className="section mt-20">
         <div className="flex flex-col md:flex-row gap-5 justify-center items-stretch">
           {/* Left Big Card */}
-          <div className="w-full md:w-[60%] bg-[#ffece7] rounded-xl overflow-hidden  shadow-md hover:scale-[1.01] transition-all duration-300 ease-out">
+          <div className="w-full md:w-[60%] bg-gray-100 rounded-xl overflow-hidden  shadow-md hover:scale-[1.01] transition-all duration-300 ease-out">
             <div className="grid grid-cols-1 md:grid-cols-2 h-full">
               {/* Text Content */}
               <div className="flex flex-col justify-center p-6   lg:py-20">
-                <h2 className="text-2xl md:text-3xl text-gray-800 font-semibold">
-                  Find Your Quality Products
+                <h2 className="text-2xl lg:text-3xl text-gray-800 font-semibold">
+                  Build Your Power Setup
                 </h2>
                 <p className="text-descipton-color my-6 line-clamp-2">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Unleash performance with high-end gaming PCs and custom builds designed for speed.
                 </p>
-                <button className="btn w-fit">Shop Now</button>
+                <button className="bg-primary-color text-white rounded-sm px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-2.5 hover:bg-primary-dark-color w-fit">Shop Now</button>
               </div>
 
               {/* Image */}
               <div className="flex justify-center items-center p-4">
                 <img
                   className="w-full object-contain"
-                  src="https://sakura-shop-three.vercel.app/image/shoes1.png"
+                  src={pc}
                   alt="Shoes Product"
                 />
               </div>
@@ -73,21 +76,21 @@ const HomePage = () => {
           {/* Right Two Small Cards */}
           <div className="w-full md:w-[40%] flex flex-col gap-5">
             {/* Card 1 */}
-            <div className="bg-[#e0f2ff] rounded-xl overflow-hidden h-full shadow-sm hover:scale-[1.01] transition-all duration-300 ease-out">
+            <div className="bg-gray-100 rounded-xl overflow-hidden h-full shadow-sm hover:scale-[1.01] transition-all duration-300 ease-out">
               <div className="grid grid-cols-1 md:grid-cols-2 h-full">
                 <div className="flex flex-col justify-center p-6 md:p-3 lg:p-6">
-                  <h2 className="text-xl text-gray-800 font-semibold">
-                    Find Your Sound
+                  <h2 className="text-2xl lg:text-xl text-gray-800 font-semibold ">
+                    Next-Gen Phone
                   </h2>
                   <p className="text-descipton-color my-4 line-clamp-1">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Smart and sleek.
                   </p>
-                  <button className="btn w-fit">Shop Now</button>
+                  <button className="bg-primary-color text-white rounded-sm px-3 py-2 sm:px-4 sm:py-2 md:px-2 md:py-2 hover:bg-primary-dark-color w-fit">Shop Now</button>
                 </div>
                 <div className="flex justify-center items-center p-4">
                   <img
                     className="w-full object-contain"
-                    src="https://sakura-shop-three.vercel.app/image/shoes2.png"
+                    src={samsung}
                     alt="Headphone Product"
                   />
                 </div>
@@ -95,16 +98,16 @@ const HomePage = () => {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-[#fff8dc] rounded-xl overflow-hidden h-full shadow-sm hover:scale-[1.01] transition-all duration-300 ease-out">
+            <div className="bg-gray-100 rounded-xl overflow-hidden h-full shadow-sm hover:scale-[1.01] transition-all duration-300 ease-out">
               <div className="grid grid-cols-1 md:grid-cols-2 h-full">
                 <div className="flex flex-col justify-center p-6 md:p-3 lg:p-6">
-                  <h2 className="text-xl font-semibold text-gray-800">
-                    Discover Comfort
+                  <h2 className="text-2xl lg:text-xl text-gray-800 font-semibold">
+                    Pure Sound
                   </h2>
                   <p className="text-descipton-color my-4 line-clamp-1">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Comfort meets clarity.
                   </p>
-                  <button className="btn w-fit">Shop Now</button>
+                  <button className="bg-primary-color text-white rounded-sm px-3 py-2 sm:px-4 sm:py-2 md:px-2 md:py-2 hover:bg-primary-dark-color w-fit">Shop Now</button>
                 </div>
                 <div className="flex justify-center items-center p-4">
                   <img
@@ -149,7 +152,7 @@ const HomePage = () => {
             </p>
             <div className="flex flex-col gap-5">
               {/* trending product */}
-              <TrendingProducts pro={pro}/>
+              <TrendingProducts pro={pro} />
             </div>
           </div>
         </div>
@@ -176,7 +179,7 @@ const HomePage = () => {
       </section>
       <section className="section">
         <div className="w-full bg-green-300 rounded-xl overflow-hidden shadow-sm">
-          <div className="grid grid-cols-2 h-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 h-full">
             {/* Text Content */}
             <div className="flex flex-col justify-center p-6 md:p-10 lg:py-10">
               <h2 className="text-3xl md:text-2xl  font-semibold text-white">
@@ -207,15 +210,12 @@ const HomePage = () => {
             <FaArrowRight />
           </p>
         </div>
-        <div className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide p-2">
+        <div className="flex gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide p-2">
           {/* best sale    */}
-             <BestSale  pro={pro}/>
-          
-         
-
+          <BestSale pro={pro} />
         </div>
       </section>
-      <section className="section bg-gray-100 pt-20">
+      <section className="section bg-gray-200 lg:rounded-xl mb-10 pt-20">
         <FAQComponent />
       </section>
     </main>

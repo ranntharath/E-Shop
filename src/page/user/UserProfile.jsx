@@ -6,8 +6,10 @@ import {
 import { useFormik } from "formik";
 import LoadingComponent from "../../components/globals/LoadingComponent";
 import { HiOutlineLogout } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 function UserProfile() {
   const [isEdit, setIsEdit] = useState(false);
+  const navigate = useNavigate()
 
   const { data: user, refetch, isFetching } = useGetUserProfileQuery();
   const [update] = useUpdateUserProfileMutation();
@@ -32,6 +34,7 @@ function UserProfile() {
 
   function logout() {
     localStorage.removeItem("accessToken");
+    navigate('/')
   }
 
   if (isFetching) return <LoadingComponent message={"Loading Profile"} />;

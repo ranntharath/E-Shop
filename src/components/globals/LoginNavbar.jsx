@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import { BsCart2 } from "react-icons/bs";
-import { useGetUserProfileQuery } from "../../redux/services/userSlice";
+import logo from "../../assets/logo.png";
 import { useGetCartQuery } from "../../redux/services/cartSlice";
 const menus = [
   { id: 1, label: "Home", path: "/" },
@@ -24,7 +24,17 @@ const LoginNavbar = ({ profile }) => {
     <>
       <header className="z-50 bg-white/20 backdrop-blur-md shadow-md py-4 md:py-4 px-4 sm:px-10 md:px-16 lg:px-[120px] sticky top-0">
         <nav className="flex justify-between items-center w-full ">
-          <div className="text-2xl">LOGO</div>
+          <Link to={"/"}>
+            <div className="flex justify-center items-center gap-2">
+              <img
+                className="w-10 scale-[1.7] overflow-hidden"
+                src={logo}
+                alt=""
+              />
+              <p className="mt-1 text-xl font-semibold text-gray-800">E-Shop</p>
+            </div>
+          </Link>
+
           <ul className={` hidden lg:flex justify-center items-center gap-5 `}>
             {menus.map((e) => {
               return (

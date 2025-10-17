@@ -2,7 +2,7 @@ import ProductCard from "../globals/ProductCard";
 
 function NewProduct({ pro }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 justify-center items-center gap-2  md:gap-3">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 justify-center items-center gap-2  md:gap-4">
       {/* products new */}
       {pro?.products?.slice(0,5).map((e, index) => {
         return (
