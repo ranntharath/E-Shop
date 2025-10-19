@@ -23,7 +23,7 @@ const HomePage = () => {
   const { data: pro, isLoading } = useGetProductQuery();
 
   return (
-    <main className="max-w-7xl mx-auto  ">
+    <main className="max-w-[1300px] mx-auto  ">
       <section id="hiro" className="section  pt-10 bg-gray-200 lg:rounded-xl lg:mt-5">
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-4">
           <div className="text-center md:text-start">

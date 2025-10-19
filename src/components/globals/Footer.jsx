@@ -71,14 +71,15 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800">
+    <footer className="bg-[#2c2c2c] text-slate-300 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-6 py-12 lg:px-8 lg:py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6 mb-12">
           {/* Brand Section */}
-          <div className="col-span-2 lg:col-span-2">
-            {/* <img src={logo} alt="" /> */}
-            <h2 className="text-2xl font-bold text-white mb-4">eShop</h2>
+          <div className="col-span-2 lg:col-span-2 ">
+            <div>
+              <img src={logo} alt="lgo" className="w-42" />
+            </div>
             <p className="text-sm leading-relaxed mb-6 max-w-xs text-slate-400">
               Building exceptional digital experiences that blend thoughtful
               design with robust engineering.
