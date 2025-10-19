@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-const DropDownFilter = ({ option = [], onChange }) => {
-  const [indexOpen, setIndexOpen] = useState(null);
+const DropDownFilter = ({ option = [], onChange, label }) => {
+  const [Open, setOpen] = useState(true);
   const [check, setCheck] = useState([]);
   function handleChange(value) {
     const update = check.includes(value)
@@ -12,21 +12,21 @@ const DropDownFilter = ({ option = [], onChange }) => {
     onChange(update);
   }
   return (
-    <div>
+    <div className="">
       <div
-        onClick={() => setIndexOpen(!indexOpen)}
+        onClick={() => setOpen(!Open)}
         className="flex justify-between items-center"
       >
-        <p className="py-3 font-semibold text-letter-color">Cagegories</p>
+        <p className="py-3 font-semibold text-letter-color">{label}</p>
         <IoIosArrowDown
           className={`${
-            indexOpen ? "" : "rotate-180"
+            Open ? "" : "rotate-180"
           } transition-all duration-200 ease-in `}
         />
       </div>
       <div
-        className={`flex flex-col justify-center items-start gap-2  overflow-hidden transition-all duration-200 ease-in ${
-          indexOpen ? "max-h-96" : "max-h-0"
+        className={`flex pl-3 flex-col justify-center items-start gap-2  overflow-hidden transition-all duration-200 ease-in ${
+          Open ? "max-h-96" : "max-h-0"
         } `}
       >
         {option.map((e, index) => {
@@ -35,11 +35,11 @@ const DropDownFilter = ({ option = [], onChange }) => {
               <input
                 type="checkbox"
                 className="accent-primary-color"
-                id={e.value}
-                value={e.value}
-                onChange={() => handleChange(e.value)}
+                id={e}
+                value={e}
+                onChange={() => handleChange(e)}
               />
-              <label htmlFor={e.value}>{e.label}</label>
+              <label htmlFor={e}>{e}</label>
             </div>
           );
         })}

@@ -5,9 +5,14 @@ import {
 } from "../../redux/services/productSlice";
 import ProductCard from "../../components/globals/ProductCard";
 import LoadingComponent from "../../components/globals/LoadingComponent";
+import DropDownFilter from "../../components/productPage/dropDownFilter";
+
+const Brand = ["iphone", "android", "mac", "android", "asus", "msi"];
 
 export default function ProductPage() {
-  const [activecategory, setActiveCategory] = useState("All");
+  const [toggleFilter, setToggleFilter] = useState(true);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -25,14 +30,24 @@ export default function ProductPage() {
   };
 
   const filterProducts = product?.products?.filter((pro) => {
-    const matchSearch =
-      activecategory === "" ||
-      pro.name?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchCategory =
-      activecategory === "All" || pro.category === activecategory;
-    return matchCategory && matchSearch;
+      selectedCategories.length == 0
+        ? true
+        : selectedCategories.includes(pro?.category);
+    const matchBrand =
+      selectedBrand.length == 0 ? true : selectedBrand.includes(pro?.brand);
+    const matchSearch =
+      searchValue === "" ||
+      pro.name?.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchCategory && matchBrand && matchSearch;
   });
 
+  function getCategories(e) {
+    setSelectedCategories(e);
+  }
+  function getBrand(e) {
+    setSelectedBrand(e);
+  }
   if (isLoading == true) {
     return <LoadingComponent message={"Loading Products"} />;
   }
@@ -73,36 +88,58 @@ export default function ProductPage() {
           </button>
         </div>
       </div>
-      <div className="flex justify-start items-center p-1 gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide mb-5">
-        {["All", ...(category?.categories || [])].map((e, index) => {
-          return (
-            <button
-              onClick={() => setActiveCategory(e)}
-              key={index}
-              className={` shadow-sm py-1 px-5 rounded-md ${
-                activecategory === e ? "bg-primary-color text-white" : ""
-              }`}
-              value={e}
-            >
-              {e}
-            </button>
-          );
-        })}
-      </div>
 
-      {/* Products Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 justify-center items-center gap-2  md:gap-3">
-        {filterProducts?.map((pro, index) => (
-          <ProductCard
-            key={pro?._id || index}
-            id={pro?._id}
-            name={pro?.name}
-            image={pro?.images[0]}
-            price={pro?.price}
-            description={pro?.description}
-          />
-        ))}
-      </div>
+      <section className="mt-10 grid grid-cols-1 md:grid-cols-4 justify-center items-start gap-5 ">
+        <button
+          onClick={() => setToggleFilter(!toggleFilter)}
+          className="flex justify-center items-center md:hidden bg-white w-full text-color-text shadow-md border border-gray-200 px-5 py-2 rounded-sm hover:bg-secondary-color hover:text-white hover:border-secondary-color transition-all ease-in-out duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-filter h-4 w-4 mr-2"
+          >
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+          </svg>
+
+          <p>Filters</p>
+        </button>
+        
+          <div className={`bg-gray-100 px-2 pt-5 space-y-2 ${toggleFilter ? "block" : "hidden"} md:block`}>
+            <DropDownFilter
+              option={category?.categories}
+              onChange={getCategories}
+              label={"Category"}
+            />
+            <DropDownFilter
+              option={Brand}
+              onChange={getBrand}
+              label={"Brand"}
+            />
+          </div>
+        
+        <div className="md:col-span-3 ">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  justify-center items-center gap-2 md:gap-4">
+            {filterProducts?.map((pro, index) => (
+              <ProductCard
+                key={pro?._id || index}
+                id={pro?._id}
+                name={pro?.name}
+                image={pro?.images[0]}
+                price={pro?.price}
+                description={pro?.description}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
