@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useGetCartQuery } from "../../redux/services/cartSlice";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useCreaetOrderMutation } from "../../redux/services/orderSlice";
 
 function OrderFormComponent({ carts }) {
   const [showQr, setShowQr] = useState(false);
@@ -11,7 +12,57 @@ function OrderFormComponent({ carts }) {
   const [paymentStatus, setPaymentStatus] = useState("UNPAID");
   const [error, setError] = useState(null);
 
+  const [order, { isLoading: isCreate }] = useCreaetOrderMutation();
   const { refetch } = useGetCartQuery();
+  const pollInterval = useRef(null);
+
+  const API_BASE_URL = "http://localhost:5000/api";
+
+  const checkPaymentStatus = async () => {
+    if (!md5) return;
+
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/check-payment?md5=${md5}`
+      );
+      const data = response.data;
+
+      if (data.status === "PAID") {
+        clearInterval(pollInterval.current);
+        setPaymentStatus("PAID");
+
+        refetch();
+
+        // Example success action
+        console.log("✅ Payment successful:", data.transaction);
+      }
+    } catch (err) {
+      console.error("Error checking payment status:", err);
+    }
+  };
+  const createOrder = async () => {
+    try {
+      const response = await order({
+        shippingAddress: formik.values.shippingAddress,
+      }).unwrap();
+      if (response) {
+        alert("create order");
+        refetch()
+      }
+    } catch (error) {
+      alert(error.data.error);
+    }
+  };
+  //Auto poll every 5s after QR shown
+  useEffect(() => {
+    if (showQr && md5 && paymentStatus === "UNPAID") {
+      pollInterval.current = setInterval(checkPaymentStatus, 5000);
+    }
+    if (paymentStatus === "PAID") {
+      createOrder();
+    }
+    return () => clearInterval(pollInterval.current);
+  }, [showQr, md5, paymentStatus]);
 
   const formik = useFormik({
     initialValues: {
@@ -28,7 +79,9 @@ function OrderFormComponent({ carts }) {
     validationSchema: Yup.object({
       shippingAddress: Yup.object({
         name: Yup.string().required("Name is Required"),
-        email: Yup.string().email("Invalid email").required("Email is Required"),
+        email: Yup.string()
+          .email("Invalid email")
+          .required("Email is Required"),
         telegramPhone: Yup.string().required("Phone is Required"),
         city: Yup.string().required("City is Required"),
       }),
@@ -48,15 +101,20 @@ function OrderFormComponent({ carts }) {
         const payload = {
           product_id: carts?.cart?._id || "default_product",
           amount: values.totalAmount,
-          bill_number: `ORDER-${Date.now()}`,
+          currency: "USD",
+          userId: carts?.cart?.userId,
         };
 
-        const response = await axios.post("http://127.0.0.1:5000/generate-qr", payload, {
-          headers: { "Content-Type": "application/json" },
-        });
+        const response = await axios.post(
+          `${API_BASE_URL}/generate-qr`,
+          payload,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
         if (response.data.success) {
-          setQrImage(response.data.qr_base64);
+          setQrImage(response.data.qr_image);
           setMd5(response.data.md5);
           setShowQr(true);
         } else {
@@ -64,7 +122,9 @@ function OrderFormComponent({ carts }) {
         }
       } catch (err) {
         console.error("QR code generation error:", err);
-        setError(err.message || "An error occurred while generating the QR code");
+        setError(
+          err.message || "An error occurred while generating the QR code"
+        );
         setShowQr(false);
       }
     },
@@ -200,7 +260,10 @@ function OrderFormComponent({ carts }) {
         </div>
       ) : (
         <div>
-          <p onClick={() => setShowQr(false)} className="text-end cursor-pointer font-semibold">
+          <p
+            onClick={() => setShowQr(false)}
+            className="text-end cursor-pointer font-semibold"
+          >
             ✖ Close
           </p>
           {qrImage && (
