@@ -165,7 +165,7 @@ function AboutPage() {
               alt="Kheang Mengheng"
             />
             <h3 className="text-xl font-semibold">Rann Tharath</h3>
-            <p className="text-gray-500">Frontend Developer</p>
+            <p className="text-gray-500"> "My code works... I don't know why, but it works"</p>
           </div>
           <div className="text-center p-6 rounded-2xl hover:scale-[1.005] transform transition-all">
             <img

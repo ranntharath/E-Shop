@@ -48,8 +48,11 @@ const Navbar = () => {
             })}
           </ul>
           <div className="flex justify-center items-center gap-4">
+            <button className="underline hover:cursor-pointer">
+              <NavLink to={"/auth/login"}>Login</NavLink>
+            </button>
               <button className="bg-primary-color px-4 py-1.5 rounded-md text-white hover:bg-primary-dark-color cursor-pointer">
-                <NavLink to={"/auth/login"}>Login</NavLink>
+                <NavLink to={"/auth/register"}>Register</NavLink>
               </button>
 
             <div className="block lg:hidden">

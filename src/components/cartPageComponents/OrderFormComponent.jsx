@@ -47,7 +47,7 @@ function OrderFormComponent({ carts }) {
       }).unwrap();
       if (response) {
         alert("create order");
-        refetch()
+        refetch();
       }
     } catch (error) {
       alert(error.data.error);
@@ -131,27 +131,27 @@ function OrderFormComponent({ carts }) {
   });
 
   return (
-    <div className="bg-primary-light p-4 rounded-md space-y-6 border shadow border-slate-200 h-fit">
-      <h3 className="text-xl font-bold">Order Summary</h3>
-
-      <div>
-        <p className="text-sm flex justify-between items-center">
-          <span>Subtotal {carts?.cart?.items?.length} items</span>
-          <span>${carts?.cart?.total}</span>
-        </p>
-        <p className="text-sm flex justify-between items-center">
-          <span>Delivery</span>
-          <span>$0.00</span>
-        </p>
-        <p className="text-sm flex justify-between items-center">
-          <span>Tax</span>
-          <span>$0.00</span>
-        </p>
-      </div>
-      <hr className="text-slate-300" />
-
+    <div className="bg-primary-light p-4 rounded-md  border shadow border-slate-200 h-fit">
       {!showQr && paymentStatus !== "PAID" ? (
-        <div>
+        <div className="space-y-6">
+          <h3 className="text-xl font-bold">Order Summary</h3>
+
+          <div>
+            <p className="text-sm flex justify-between items-center">
+              <span>Subtotal {carts?.cart?.items?.length} items</span>
+              <span>${carts?.cart?.total}</span>
+            </p>
+            <p className="text-sm flex justify-between items-center">
+              <span>Delivery</span>
+              <span>$0.00</span>
+            </p>
+            <p className="text-sm flex justify-between items-center">
+              <span>Tax</span>
+              <span>$0.00</span>
+            </p>
+          </div>
+          <hr className="text-slate-300" />
+
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-bold">Total</h3>
             <h3 className="text-xl font-bold text-primary-color">
@@ -260,29 +260,40 @@ function OrderFormComponent({ carts }) {
         </div>
       ) : (
         <div>
-          <p
-            onClick={() => setShowQr(false)}
-            className="text-end cursor-pointer font-semibold"
-          >
-            ✖ Close
-          </p>
-          {qrImage && (
-            <div className="text-center">
-              <img
-                id="Qr"
-                src={qrImage}
-                alt="QR Code"
-                className="w-full max-w-xs mx-auto"
-              />
-              <p className="mt-2 font-medium">
-                {paymentStatus === "UNPAID"
-                  ? "🕓 Waiting for payment... Scan the QR to complete"
-                  : "🔍 Checking payment status..."}
-              </p>
-              {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-            </div>
-          )}
-        </div>
+  <p
+    onClick={() => setShowQr(false)}
+    className="text-end cursor-pointer font-semibold"
+  >
+    ✖
+  </p>
+
+  {qrImage && (
+    <div className="text-center bg-gray-200 rounded-md py-6 px-2 mt-2">
+      <img
+        id="Qr"
+        src={qrImage}
+        alt="QR Code"
+        className="w-full max-w-xs mx-auto"
+      />
+      <p className="mt-2 font-medium">
+        {paymentStatus === "UNPAID"
+          ? "🕓 Waiting for payment... Scan the QR to complete"
+          : "🔍 Checking payment status..."}
+      </p>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+
+      {/* Download button */}
+      <a
+        href={qrImage}
+        download="QRCode.png"
+        className="mt-4 inline-block bg-primary-color text-white py-2 px-4 rounded-md hover:bg-primary-dark-color transition"
+      >
+        ⬇ Download QR
+      </a>
+    </div>
+  )}
+</div>
+
       )}
     </div>
   );
