@@ -20,7 +20,7 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
 
   return (
     <>
-      <div className="h-full   border border-gray-100 shadow-sm hover:shadow-md transition-all duration-150 rounded-2xl hover:scale-[1.01] overflow-hidden bg-white ">
+      <div className="h-full   border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 rounded-2xl  overflow-hidden bg-white ">
         {/* Image */} 
         <div>
           <img

@@ -11,7 +11,7 @@ function AboutPage() {
           src="https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1470&q=80"
           alt="About Us"
         />
-        <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold text-white drop-shadow-lg">
+        <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl md:text-5xl font-bold text-white drop-shadow-lg">
           About Us
         </h2>
       </section>
@@ -147,17 +147,27 @@ function AboutPage() {
         <div className="text-center mb-10">
           <h2 className="text-4xl font-semibold text-gray-800">Our Team</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="text-center bg-white p-6 rounded-2xl shadow-md hover:scale-[1.005] transform transition-all">
+        <div className="text-center  p-6  hover:scale-[1.005] transform transition-all ">
             <img
               className="w-32 h-32 rounded-full mx-auto object-cover mb-4"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEMZE6zIpeZRXVZ5Ne0EeQLC-XcHwHxAq64w&s"
               alt="Rann Tharath"
             />
+            <h3 className="text-xl font-semibold">Yorm Ratana</h3>
+            <p className="text-gray-500">Instructor</p>
+          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <div className="text-center  p-6 rounded-2xl  hover:scale-[1.005] transform transition-all">
+            <img
+              className="w-32 h-32 rounded-full mx-auto object-cover mb-4"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEMZE6zIpeZRXVZ5Ne0EeQLC-XcHwHxAq64w&s"
+              alt="Kheang Mengheng"
+            />
             <h3 className="text-xl font-semibold">Rann Tharath</h3>
             <p className="text-gray-500">Frontend Developer</p>
           </div>
-          <div className="text-center bg-white p-6 rounded-2xl shadow-md hover:scale-[1.005] transform transition-all">
+          <div className="text-center p-6 rounded-2xl hover:scale-[1.005] transform transition-all">
             <img
               className="w-32 h-32 rounded-full mx-auto object-cover mb-4"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEMZE6zIpeZRXVZ5Ne0EeQLC-XcHwHxAq64w&s"

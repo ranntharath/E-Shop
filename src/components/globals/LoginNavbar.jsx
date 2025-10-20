@@ -29,7 +29,7 @@ const LoginNavbar = ({ profile }) => {
               <img
                 className="w-10 scale-[1.7] overflow-hidden"
                 src={logo}
-                alt=""
+                alt="logo"
               />
               <p className="mt-1 text-xl font-semibold text-gray-800">E-Shop</p>
             </div>

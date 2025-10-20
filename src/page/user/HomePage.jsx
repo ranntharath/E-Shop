@@ -39,7 +39,7 @@ const HomePage = () => {
           </div>
           <div className="flex justify-center items-center">
             <img
-              className=" scale-[1.09] transition-all ease-in duration-150"
+              className=" scale-[1.07] transition-all ease-in duration-150 overflow-hidden"
               src={hiro}
               alt="hiro-image"
             />
@@ -131,7 +131,7 @@ const HomePage = () => {
         <div className="flex flex-col lg:flex-row justify-center items-start gap-10">
           <div className="w-full lg:w-1/3 relative hover:scale-[1.01] transition-all duration-300 ease-out">
             <img
-              className="w-full object-cover rounded-3xl shadow-lg"
+              className="w-full  object-cover rounded-3xl shadow-lg"
               src={iphone}
               alt="Samsung Limited"
             />

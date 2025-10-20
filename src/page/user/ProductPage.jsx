@@ -92,7 +92,7 @@ export default function ProductPage() {
       <section className="mt-10 grid grid-cols-1 md:grid-cols-4 justify-center items-start gap-5 ">
         <button
           onClick={() => setToggleFilter(!toggleFilter)}
-          className="flex justify-center items-center md:hidden bg-white w-full text-color-text shadow-md border border-gray-200 px-5 py-2 rounded-sm hover:bg-secondary-color hover:text-white hover:border-secondary-color transition-all ease-in-out duration-200"
+          className="flex justify-center items-center md:hidden bg-white w-full text-color-text shadow-md border border-gray-200 px-5 py-2 rounded-sm hover:bg-secondary-color hover:text-primary-color hover:border-secondary-color transition-all ease-in-out duration-150 active:scale-[0.99] active:bg-primary-color active:text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
