@@ -4,8 +4,10 @@ import { useGetCartQuery } from "../../redux/services/cartSlice";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useCreaetOrderMutation } from "../../redux/services/orderSlice";
+import { useNavigate } from "react-router-dom";
 
 function OrderFormComponent({ carts }) {
+  const navigate = useNavigate()
   const [showQr, setShowQr] = useState(false);
   const [qrImage, setQrImage] = useState(null);
   const [md5, setMd5] = useState(null);
@@ -46,7 +48,7 @@ function OrderFormComponent({ carts }) {
         shippingAddress: formik.values.shippingAddress,
       }).unwrap();
       if (response) {
-        alert("create order");
+        navigate(`/order-history/${response?.order?._id}`)
         refetch();
       }
     } catch (error) {

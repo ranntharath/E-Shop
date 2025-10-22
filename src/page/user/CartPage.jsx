@@ -16,29 +16,15 @@ function CartPage() {
   return (
     <>
       <section className="section text-color-text mt-5">
-        <div className="flex flex-col md:flex-row justify-between items-center p-2">
+        <div className="flex  justify-between items-start p-2">
           <div className="w-full md:w-fit mb-4 md:mb-0">
             <h2 className="font-bold">Shopping Cart</h2>
             <p>{carts?.cart?.items?.length} items in your cart</p>
           </div>
-          <Link to="/product" className="w-full md:w-fit">
-            <button className="cursor-pointer w-full flex justify-center items-center bg-white text-color-text shadow-md border border-gray-200 px-5 py-1.5 rounded-sm hover:bg-gray-300 hover:text-white hover:border-secondary-color transition-all ease-in-out duration-200">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-arrow-left h-4 w-4 mr-2"
-              >
-                <path d="m12 19-7-7 7-7"></path>
-                <path d="M19 12H5"></path>
-              </svg>
-              <p>Continue Shopping</p>
+          <Link to="/order-history" className="w-full md:w-fit">
+            <button className="underline underline-offset-2 text-green-500 cursor-pointer w-full flex justify-center items-center  text-color-text   px-5 py-1.5 rounded-sm   transition-all ease-in-out duration-200">
+              
+              Order History
             </button>
           </Link>
         </div>

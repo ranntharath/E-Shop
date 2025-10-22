@@ -36,7 +36,7 @@ export const productApi = createApi({
     }),
     getProductById: builder.query({
       query: (id)=>({
-        url:`products/${id}`
+        url:`/products/${id}`
       })
     })
   }),

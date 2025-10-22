@@ -94,7 +94,7 @@ function UserProfile() {
             {!isEdit && (
               <button
                 onClick={toggleEdit}
-                className="px-6 py-2.5  text-white font-medium rounded-xl transition-all shadow-md  bg-primary-color "
+                className="px-3 py-1.5  text-white font-medium rounded-xl transition-all shadow-md  bg-primary-color "
               >
                 <span className="flex items-center gap-2">
                   <svg

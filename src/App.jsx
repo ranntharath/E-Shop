@@ -9,6 +9,8 @@ import Register from "./page/auth/Register";
 import Login from "./page/auth/Login";
 import UserProfile from "./page/user/UserProfile";
 import CartPage from "./page/user/CartPage";
+import OrderHistoryPage from "./page/user/OrderHistoryPage";
+import OrderDetail from "./components/orderHistory/OrderDetail";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/about" element={<AboutPage/>} />
         <Route path="/products/:id" element={<DetailPage/>}/>
         <Route path="/cart" element={<CartPage/>}/>
+        <Route path="/order-history" element={<OrderHistoryPage/>}/>
+        <Route path="/order-history/:id" element={<OrderDetail/>}/>
       </Route>
       <Route path="/user/profile" element={<UserProfile/>}/>
       <Route path="/auth/register" element={<Register/>}/>

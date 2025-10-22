@@ -17,11 +17,23 @@ export const orderApi = createApi({
     endpoints: (builder)=>({
         creaetOrder: builder.mutation({
             query: (data)=>({
-                url: 'orders',
+                url: '/orders',
                 method: "POST",
                 body: data
             }),
+        }),
+        getUserOrder: builder.query({
+            query:()=>({
+                url: "/orders",
+                method: "GET"
+            })
+        }),
+        getUserOrderById: builder.query({
+            query:(id)=>({
+                url:`/orders/${id}`,
+                method: "GET",
+            })
         })
     })
 })
-export const {useCreaetOrderMutation} = orderApi
+export const {useCreaetOrderMutation, useGetUserOrderQuery, useGetUserOrderByIdQuery} = orderApi
