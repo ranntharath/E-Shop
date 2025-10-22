@@ -5,7 +5,7 @@ import {
 } from "../../redux/services/productSlice";
 import ProductCard from "../../components/globals/ProductCard";
 import LoadingComponent from "../../components/globals/LoadingComponent";
-import DropDownFilter from "../../components/productPage/dropDownFilter";
+import DropDownFilter from "../../components/productPage/DropDownFilter";
 
 const Brand = ["iphone", "android", "mac", "android", "asus", "msi"];
 
