@@ -18,14 +18,14 @@ function OrderFormComponent({ carts }) {
   const { refetch } = useGetCartQuery();
   const pollInterval = useRef(null);
 
-  const API_BASE_URL = "http://localhost:5000/api";
+  const VITE_BAKONG_URL = import.meta.env.VITE_BAKONG_URL;
 
   const checkPaymentStatus = async () => {
     if (!md5) return;
 
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/check-payment?md5=${md5}`
+        `${VITE_BAKONG_URL}/check-payment?md5=${md5}`
       );
       const data = response.data;
 
@@ -108,7 +108,7 @@ function OrderFormComponent({ carts }) {
         };
 
         const response = await axios.post(
-          `${API_BASE_URL}/generate-qr`,
+          `${VITE_BAKONG_URL}/generate-qr`,
           payload,
           {
             headers: { "Content-Type": "application/json" },
