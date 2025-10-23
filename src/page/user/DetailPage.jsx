@@ -10,6 +10,7 @@ import LoadingComponent from "../../components/globals/LoadingComponent";
 import ProductCard from "../../components/globals/ProductCard";
 import { useAddToCartMutation } from "../../redux/services/cartSlice";
 import React from "react";
+import toast from "react-hot-toast";
 
 const StarIcon = ({ filled, className = "" }) => (
   <svg
@@ -115,8 +116,11 @@ export default function DetailPage() {
         productId: pro?.product?._id,
         quantity,
       }).unwrap();
+      if(response){
+        toast.success(response?.message)
+      }
     } catch (error) {
-      alert(error.data.error);
+      toast.error(error.data.error)
     }
   }
 

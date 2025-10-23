@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useCreaetOrderMutation } from "../../redux/services/orderSlice";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import emailjs from 'emailjs-com';
 
 function OrderFormComponent({ carts }) {
   const navigate = useNavigate()
@@ -34,11 +36,10 @@ function OrderFormComponent({ carts }) {
         setPaymentStatus("PAID");
 
         refetch();
-
-        // Example success action
-        console.log("✅ Payment successful:", data.transaction);
+        toast.success("Payment successful")
       }
     } catch (err) {
+      toast.error("Error checking payment")
       console.error("Error checking payment status:", err);
     }
   };
@@ -48,13 +49,69 @@ function OrderFormComponent({ carts }) {
         shippingAddress: formik.values.shippingAddress,
       }).unwrap();
       if (response) {
+        // console.log(formik.values)
+        await sendOrderToEmail(formik.values)
         navigate(`/order-history/${response?.order?._id}`)
         refetch();
       }
     } catch (error) {
-      alert(error.data.error);
+      toast.error(error.data.error);
     }
   };
+  const sendOrderToEmail = async (orderData) => {
+  const EMAIL_SERVICE_ID = import.meta.env.VITE_EMAIL_SERVICE_ID
+  const EMAIL_TEMPLATE_ID = import.meta.env.VITE_EMAIL_TEMPLATE_ID     // admin
+  const EMAIL_AUTOREPLY_ID = import.meta.env.VITE_EMAIL_AUTOREPLY_ID   // auto reply
+  const EMAIL_PUBLIC_KEY = import.meta.env.VITE_EMAIL_PUBLIC_KEY
+
+  try {
+    const itemsHTML = orderData.items
+      .map(
+        (item) => `
+          <div style="margin-bottom: 10px;">
+            <img src="${item.product.images[0]}" alt="${item.productId}" width="100" style="display:block; margin-bottom:5px;"/>
+            <strong>${item.productId}</strong><br/>
+            Quantity: ${item.quantity}<br/>
+            Price: $${item.price}<br/>
+            Total Price : $${item.price * item.quantity}<br/>
+          </div>
+        `
+      )
+      .join("");
+
+    const templateParams = {
+      id: orderData?.id,
+      name: orderData?.shippingAddress?.name,
+      email: orderData?.shippingAddress?.email,
+      city: orderData?.shippingAddress?.city,
+      telegramPhone: orderData?.shippingAddress?.telegramPhone,
+      totalAmount: orderData?.totalAmount,
+      items: itemsHTML,
+    };
+
+    // Send order details to admin
+    await emailjs.send(
+      EMAIL_SERVICE_ID,
+      EMAIL_TEMPLATE_ID,
+      templateParams,
+      EMAIL_PUBLIC_KEY
+    );
+
+    // // 2) Auto-reply to customer
+    // await emailjs.send(
+    //   EMAIL_SERVICE_ID,
+    //   EMAIL_AUTOREPLY_ID,
+    //   templateParams,
+    //   EMAIL_PUBLIC_KEY
+    // );
+
+    return true
+  } catch (err) {
+    console.error("Error sending order:", err);
+    
+  }
+};
+
   //Auto poll every 5s after QR shown
   useEffect(() => {
     if (showQr && md5 && paymentStatus === "UNPAID") {
@@ -68,7 +125,7 @@ function OrderFormComponent({ carts }) {
 
   const formik = useFormik({
     initialValues: {
-      id: "",
+      id: carts?.cart?._id || "",
       shippingAddress: {
         city: "",
         email: "",

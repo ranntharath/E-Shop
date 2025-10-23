@@ -11,9 +11,26 @@ import UserProfile from "./page/user/UserProfile";
 import CartPage from "./page/user/CartPage";
 import OrderHistoryPage from "./page/user/OrderHistoryPage";
 import OrderDetail from "./components/orderHistory/OrderDetail";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
+    <>
+
+    <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 1500,
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+            padding: "12px 20px",
+            fontSize: "16px",
+          },
+        }}
+      />
     <Routes>
       <Route element={<RootLayout />}>
         <Route path="/" element={<HomePage />} />
@@ -29,6 +46,8 @@ function App() {
       <Route path="/auth/register" element={<Register/>}/>
       <Route path="/auth/login" element={<Login/>}/>
     </Routes>
+
+    </>
   );
 }
 

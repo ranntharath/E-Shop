@@ -2,6 +2,7 @@ import React from "react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAddToCartMutation } from "../../redux/services/cartSlice";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ id, image, name, description, rate, price }) => {
   const [addtoCart, {isLoading}] = useAddToCartMutation()
@@ -10,10 +11,11 @@ const ProductCard = ({ id, image, name, description, rate, price }) => {
     try{
       const response = await addtoCart({productId:id, quantity:1}).unwrap()
       if(response){
-        alert('addedd to cart')
-      } 
+        toast.success(response?.message)
+      }
+      
     }catch(error){
-      alert(error.data.error)
+      toast.error(error.data.error)
     }
   }
 
