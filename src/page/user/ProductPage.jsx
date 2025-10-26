@@ -76,10 +76,16 @@ export default function ProductPage() {
         <div className="flex justify-start items-center gap-2 mt-3">
           <input
             onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setSearchQuery(searchValue);
+              }
+            }}
             placeholder="Search..."
             type="text"
-            className="border border-gray-400 px-2  p-1   rounded-md focus:outline-1 outline-primary-color focus:border-primary-color"
+            className="border border-gray-400 px-2 p-1 rounded-md focus:outline-1 outline-primary-color focus:border-primary-color"
           />
+
           <button
             onClick={() => setSearchQuery(searchValue)}
             className="bg-gray-300  p-1 rounded-md cursor-pointer"
@@ -111,20 +117,20 @@ export default function ProductPage() {
 
           <p>Filters</p>
         </button>
-        
-          <div className={`bg-gray-100 px-2 pt-5 space-y-2 ${toggleFilter ? "block" : "hidden"} md:block`}>
-            <DropDownFilter
-              option={category?.categories}
-              onChange={getCategories}
-              label={"Category"}
-            />
-            <DropDownFilter
-              option={Brand}
-              onChange={getBrand}
-              label={"Brand"}
-            />
-          </div>
-        
+
+        <div
+          className={`bg-gray-100 px-2 pt-5 space-y-2 ${
+            toggleFilter ? "block" : "hidden"
+          } md:block`}
+        >
+          <DropDownFilter
+            option={category?.categories}
+            onChange={getCategories}
+            label={"Category"}
+          />
+          <DropDownFilter option={Brand} onChange={getBrand} label={"Brand"} />
+        </div>
+
         <div className="md:col-span-3 ">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  justify-center items-center gap-2 md:gap-4">
             {filterProducts?.map((pro, index) => (

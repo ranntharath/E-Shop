@@ -10,6 +10,7 @@ import BestSale from "../../components/HomepageComponents/BestSale";
 import hiro from "../../assets/hiro.png";
 import pc from '../../assets/pc.png'
 import samsung from '../../assets/samsung.png'
+import mac from '../../assets/macc.png'
 const categories = [
   { icon: <IoTvOutline />, label: "Computer" },
   { icon: <CiMobile2 />, label: "Mobile" },
@@ -196,7 +197,7 @@ const HomePage = () => {
             <div className="flex justify-center items-center p-4">
               <img
                 className="w-[90%] md:w-2/3 object-contain"
-                src="https://sakura-shop-three.vercel.app/image/shoes1.png"
+                src={mac}
                 alt="Shoes Product"
               />
             </div>
