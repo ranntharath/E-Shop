@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "../components/globals/Navbar";
-import { Outlet } from "react-router-dom";
 import Footer from "../components/globals/Footer";
 import LoginNavbar from "../components/globals/LoginNavbar";
-import { useGetMeQuery } from "../redux/services/authSlice";
 import LoadingComponent from "../components/globals/LoadingComponent";
 import { useGetUserProfileQuery } from "../redux/services/userSlice";
 
 function RootLayout() {
+  const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");
 
   const { data, isLoading } = useGetUserProfileQuery(undefined, {
     skip: !token,
   });
+
+  useEffect(() => {
+    if (!isLoading && data?.user?.role === "admin") {
+      navigate("/admin/dashboard", { replace: true });
+    }
+  }, [data, isLoading, navigate]);
 
   if (!token)
     return (
@@ -37,4 +43,5 @@ function RootLayout() {
     </div>
   );
 }
+
 export default RootLayout;

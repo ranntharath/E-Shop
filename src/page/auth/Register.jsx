@@ -33,9 +33,13 @@ function Register() {
       }
       try {
         const response = await register(values).unwrap();
-        if (response) {
+        if (response?.user?.role == 'user') {
           localStorage.setItem("accessToken", response.token);
           navigator("/");
+        }
+        if(response?.user?.role == "admin"){
+          localStorage.setItem("accessToken", response.token);
+          navigator('/admin/dashboard')
         }
       } catch (error) {
         console.error("Verification failed", error);
