@@ -8,6 +8,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { IoIosLogOut } from "react-icons/io";
+import ConfirmDialog from "../components/globals/ConfirmDailog";
 function AdminLayout() {
   const token = localStorage.getItem("accessToken");
   const navigate = useNavigate();
@@ -20,7 +21,8 @@ function AdminLayout() {
   const [isMd, setIsMd] = useState(window.innerWidth >= 768);
   const [showLogout, setShowLogout] = useState(false);
 
-  // 🔍 Watch screen size
+
+  // Watch screen size
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 768px)");
     const handler = (e) => setIsMd(e.matches);
@@ -47,10 +49,11 @@ function AdminLayout() {
   }
 
   return (
+    <>
     <div className="flex min-h-screen bg-gray-100">
      
       <aside
-        className={`bg-white fixed lg:static transition-all duration-200 ease-in-out shadow-md overflow-hidden min-h-screen
+        className={`z-10 bg-white fixed lg:static transition-all duration-200 ease-in-out shadow-md overflow-hidden min-h-screen
           ${isOpen ? "max-w-64" : "max-w-0"} lg:max-w-64`}
       >
         <div className="p-4 text-xl font-bold bg-primary-color text-white text-center">
@@ -131,13 +134,15 @@ function AdminLayout() {
           <h2 className="text-lg font-semibold">Admin Panel</h2>
         </header>
 
-        <main className="p-6">
+        <main className="p-6 ">
           <Outlet />
         </main>
       </div>
 
      
     </div>
+    <ConfirmDialog title={"Logout"} message={"Do you want to logout?"} onConfirm={handleLogout} open={showLogout} onCancel={()=>setShowLogout(false)} />
+    </>
   );
 }
 

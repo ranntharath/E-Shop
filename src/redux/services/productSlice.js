@@ -30,13 +30,26 @@ export const productApi = createApi({
 
     getCategories: builder.query({
       query: () => ({
-        url: '/categories',
-        method: "GET"
-      })
+        url: "/categories",
+        method: "GET",
+      }),
     }),
     getProductById: builder.query({
-      query: (id)=>({
-        url:`/products/${id}`
+      query: (id) => ({
+        url: `/products/${id}`,
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    editProuduct: builder.mutation({
+      query:({id,data})=>({
+        url: `/products/${id}`,
+        method: "PUT",
+        body:data
       })
     })
   }),
@@ -45,5 +58,7 @@ export const {
   useGetProductQuery,
   useAddProductMutation,
   useGetCategoriesQuery,
-  useGetProductByIdQuery
+  useGetProductByIdQuery,
+  useDeleteProductMutation,
+  useEditProuductMutation
 } = productApi;

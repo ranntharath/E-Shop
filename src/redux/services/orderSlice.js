@@ -33,7 +33,15 @@ export const orderApi = createApi({
                 url:`/orders/${id}`,
                 method: "GET",
             })
+        }),
+        // admin
+
+        getAllOrders: builder.query({
+            query: ()=>({
+                url: "/admin/orders",
+                method :  "GET"
+            })
         })
     })
 })
-export const {useCreaetOrderMutation, useGetUserOrderQuery, useGetUserOrderByIdQuery} = orderApi
+export const {useCreaetOrderMutation, useGetUserOrderQuery, useGetUserOrderByIdQuery, useGetAllOrdersQuery} = orderApi
