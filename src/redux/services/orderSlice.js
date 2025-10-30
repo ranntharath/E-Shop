@@ -41,7 +41,10 @@ export const orderApi = createApi({
                 url: "/admin/orders",
                 method :  "GET"
             })
+        }),
+        getOrderPagination: builder.query({
+            query:({ page = 1, limit = 10 }) => `/admin/orders?page=${page}&limit=${limit}`,
         })
     })
 })
-export const {useCreaetOrderMutation, useGetUserOrderQuery, useGetUserOrderByIdQuery, useGetAllOrdersQuery} = orderApi
+export const {useCreaetOrderMutation, useGetUserOrderQuery, useGetUserOrderByIdQuery, useGetAllOrdersQuery, useGetOrderPaginationQuery} = orderApi

@@ -3,6 +3,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import {
   useDeleteProductMutation,
   useGetCategoriesQuery,
+  useGetProductPaginationQuery,
   useGetProductQuery,
 } from "../../redux/services/productSlice";
 import { Pencil, Trash2 } from "lucide-react";
@@ -27,13 +28,21 @@ function Product() {
   const [openEdit, setOpenEdit] = useState(null);
   const [ActionProudctID, setActionProudctID] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // pagination
+  const [page, setPage] = useState(1);
+  const limit = 10;
+
   const {
     data: allProducts,
     isLoading: isLoadingProduct,
     refetch,
-  } = useGetProductQuery();
+  } = useGetProductPaginationQuery({ page, limit });
   const { refetch: refectCategory } = useGetCategoriesQuery();
   const [deleteProduct] = useDeleteProductMutation();
+
+  const totalPages = allProducts?.pagination?.pages || 1;
+
   async function handleDeleteProduct() {
     if (!ActionProudctID) return;
     try {
@@ -218,17 +227,50 @@ function Product() {
       >
         <AddProductForm isOpen={isOpen} onClose={() => setIsOpen(false)} />
       </div>
+
+      {/* pagination */}
+      <div className="flex gap-2 mt-4 justify-center">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => setPage(i + 1)}
+            className={`px-3 py-1 border border-slate-300 rounded ${
+              page === i + 1 ? "bg-primary-color text-white" : ""
+            }`}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={page === totalPages}
+          className="px-3 py-1 border rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
       {/* edit form */}
-    
-        <div className={`fixed inset-0 bg-black/60 bg-opacity-50 transition-opacity duration-300 ease-in-out z-40 
-                ${openEdit ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-          <EditProduct
-            isOpen={openEdit}
-            onClose={() => setOpenEdit(false)}
-            id={ActionProudctID}
-            product={selectedProduct}
-          />
-        </div>
+      <div
+        className={`fixed inset-0 bg-black/60 bg-opacity-50 transition-opacity duration-300 ease-in-out z-40 
+                ${openEdit ? "opacity-100 visible" : "opacity-0 invisible"}`}
+      >
+        <EditProduct
+          isOpen={openEdit}
+          onClose={() => setOpenEdit(false)}
+          id={ActionProudctID}
+          product={selectedProduct}
+          page={page}
+        />
+      </div>
 
       {/* confirm Dialog */}
       <ConfirmDialog

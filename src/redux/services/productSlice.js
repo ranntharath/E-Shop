@@ -20,6 +20,9 @@ export const productApi = createApi({
         method: "GET",
       }),
     }),
+    getProductPagination: builder.query({
+      query:({ page = 1, limit = 10 }) => `/products?page=${page}&limit=${limit}`,
+    }),
     addProduct: builder.mutation({
       query: (data) => ({
         url: "/products",
@@ -60,5 +63,6 @@ export const {
   useGetCategoriesQuery,
   useGetProductByIdQuery,
   useDeleteProductMutation,
-  useEditProuductMutation
+  useEditProuductMutation,
+  useGetProductPaginationQuery
 } = productApi;

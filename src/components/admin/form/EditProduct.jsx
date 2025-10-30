@@ -4,21 +4,22 @@ import {
   useEditProuductMutation,
   useGetCategoriesQuery,
   useGetProductByIdQuery,
+  useGetProductPaginationQuery,
   useGetProductQuery,
 } from "../../../redux/services/productSlice";
 import toast from "react-hot-toast";
 import LoadingComponent from "../../globals/LoadingComponent";
-function EditProduct({ isOpen, onClose, id, product }) {
+function EditProduct({ isOpen, onClose, id, product,page }) {
   const [UpdateProduct] = useEditProuductMutation();
-const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    category: "",
-    price: "",
-    stock: "",
-    brand: "",
-    images: [],
-  });
+  const [formData, setFormData] = useState({
+      name: "",
+      description: "",
+      category: "",
+      price: "",
+      stock: "",
+      brand: "",
+      images: [],
+    });
 
   useEffect(() => {
     if (product) {
@@ -34,7 +35,7 @@ const [formData, setFormData] = useState({
     }
   }, [product]);
 
-  const { refetch } = useGetProductQuery();
+  const { refetch } = useGetProductPaginationQuery({page, limit:10});
   const { refetch: refectCategory } = useGetCategoriesQuery();
 
   const handleInputChange = (e) => {
@@ -61,7 +62,6 @@ const [formData, setFormData] = useState({
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(id);
-    console.log(formData);
     try {
       const response = await UpdateProduct({ id:product._id, data: formData }).unwrap();
       if (response) {

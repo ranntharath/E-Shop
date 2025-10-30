@@ -11,9 +11,9 @@ import LoadingComponent from "../../components/globals/LoadingComponent";
 import { useGetAllOrdersQuery } from "../../redux/services/orderSlice";
 import { useGetCategoriesQuery } from "../../redux/services/productSlice";
 const columns = [
-  "Order ID",
   "Customer Name",
   "Email",
+  "Phone",
   "Items",
   "Total",
   "Date",
@@ -108,17 +108,18 @@ function Dashboard() {
                   <td className="py-3 px-5 font-medium text-gray-700 whitespace-nowrap">
                     {order?.shippingAddress?.name}
                   </td>
-                  <td className="py-3 px-5 font-medium text-gray-700 whitespace-nowrap">
-                    {order?.shippingAddress?.name}
+
+                  <td className="py-3 px-5 text-gray-600 whitespace-nowrap">
+                    {order?.shippingAddress?.email}
                   </td>
                   <td className="py-3 px-5 text-gray-600 whitespace-nowrap">
-                    {order.shippingAddress.email}
+                    {order?.shippingAddress?.telegramPhone}
                   </td>
                   <td className="py-3 px-5 text-gray-600 whitespace-nowrap">
                     {order?.items?.length}
                   </td>
                   <td className="py-3 px-5 font-semibold text-green-500 whitespace-nowrap">
-                    ${order.totalAmount.toFixed(2)}
+                    ${order.totalAmount?.toFixed(2)}
                   </td>
 
                   <td className="py-3 px-5 text-gray-500 whitespace-nowrap">

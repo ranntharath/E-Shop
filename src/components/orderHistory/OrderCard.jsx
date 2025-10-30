@@ -11,7 +11,7 @@ function OrderCard({ id, order, date, status, items, total }) {
   // Shortened order ID for a cleaner look
   const shortId = order ? `#${order.slice(-6).toUpperCase()}` : "ORD-000001";
 
-  // Status badge color setup
+ 
   const getStatusStyle = (status) => {
     switch (status) {
       case "pending":

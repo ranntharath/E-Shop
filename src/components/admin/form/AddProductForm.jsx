@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import {
   useAddProductMutation,
   useGetCategoriesQuery,
+  useGetProductPaginationQuery,
   useGetProductQuery,
 } from "../../../redux/services/productSlice";
 import toast from "react-hot-toast";
@@ -20,7 +21,7 @@ export default function AddProductForm({ isOpen, onClose }) {
   });
   const [addProduct, { isLoading: addproductLoading }] =
     useAddProductMutation();
-  const { refetch } = useGetProductQuery();
+  const { refetch } = useGetProductPaginationQuery({page:1, limit:10});
 
   const { refetch: refectCategory } = useGetCategoriesQuery();
 

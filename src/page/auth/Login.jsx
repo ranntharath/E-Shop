@@ -4,7 +4,7 @@ import { useLoginMutation } from "../../redux/services/authSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 function Login() {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const [login, { isLoading, isError }] = useLoginMutation();
 
@@ -24,14 +24,10 @@ function Login() {
     onSubmit: async (values) => {
       try {
         const response = await login(values).unwrap();
-        
-        if (response?.user?.role == 'user') {
+        if (response?.user?.role) {
           localStorage.setItem("accessToken", response.token);
-          navigator("/");
-        }
-        if(response?.user?.role == "admin"){
-          localStorage.setItem("accessToken", response.token);
-          navigator('/admin/dashboard')
+          if (response?.user?.role === "user") navigate("/");
+          if (response?.user?.role === "admin") navigate("/admin/dashboard");
         }
       } catch (error) {
         console.error("Verification failed", error);
