@@ -18,6 +18,7 @@ import UnauthorizedPage from "./components/globals/UnauthorizedPage";
 import Dashboard from "./page/admin/Dashboard";
 import Order from "./page/admin/Order";
 import Product from "./page/admin/Product";
+import User from "./page/admin/User";
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
         }}
       />
       <Routes>
-        {/* ✅ Public & User Routes */}
+        {/* Public & User Routes */}
         <Route element={<RootLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/product" element={<ProductPage />} />
@@ -50,11 +51,12 @@ function App() {
           <Route path="/user/profile" element={<UserProfile />} />
         </Route>
 
-        {/* ✅ Admin Routes */}
+        {/* Admin Routes */}
         <Route element={<AdminLayout />}>
           <Route path="/admin/dashboard" element={<Dashboard/>} />
           <Route path="/admin/orders" element={<Order/>} />
           <Route path="/admin/products" element={<Product/>} />
+          <Route path="/admin/users" element={<User/>} />
         </Route>
 
         {/* Auth & Unauthorized */}

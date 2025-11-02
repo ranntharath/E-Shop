@@ -193,11 +193,11 @@ function Footer() {
             >
               contact@eshop.com
             </a>
-            <div className="flex items-center gap-2 text-sm text-slate-400">
+            {/* <div className="flex items-center gap-2 text-sm text-slate-400">
               <span>Made with</span>
               <span className="text-blue-400">♥</span>
               <span>by bros smos</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

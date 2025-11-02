@@ -3,20 +3,16 @@ import { IoIosArrowDown } from "react-icons/io";
 const faqs = [
     {
         question: "What payment methods do you accept?",
-        answer: "We accept credit cards, PayPal, and other secure payment methods.",
+        answer: "We accept Bakong payment methods.",
     },
     {
         question: "How long does the product shipping take?",
         answer: "Shipping typically takes 5-7 business days depending on your location.",
     },
     {
-        question: "Do you offer international shipping?",
-        answer: "Yes, we ship to most countries worldwide with additional fees.",
-    },
-    {
-        question: "Can I track my order?",
+        question: "Can I see my order history?",
         answer:
-            "Absolutely! Once your order has been shipped, we'll send you a tracking number so you can follow its journey in real time.",
+            "Absolutely! Once your order has been success, You'll able to see your order history ."
     },
 ];
 

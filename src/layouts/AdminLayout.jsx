@@ -9,6 +9,8 @@ import { RxDashboard } from "react-icons/rx";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { IoIosLogOut } from "react-icons/io";
 import ConfirmDialog from "../components/globals/ConfirmDailog";
+import { useDispatch } from "react-redux";
+import {userApi} from '../redux/services/userSlice'
 function AdminLayout() {
   const token = localStorage.getItem("accessToken");
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ function AdminLayout() {
   const { data, isLoading } = useGetUserProfileQuery(undefined, {
     skip: !token,
   });
-
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const [isMd, setIsMd] = useState(window.innerWidth >= 768);
   const [showLogout, setShowLogout] = useState(false);
@@ -36,6 +38,7 @@ function AdminLayout() {
 
 
   const handleLogout = () => {
+    dispatch(userApi.util.resetApiState())
     localStorage.removeItem("accessToken");
     setShowLogout(false);
     navigate("/");

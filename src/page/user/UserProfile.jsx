@@ -7,12 +7,17 @@ import { useFormik } from "formik";
 import LoadingComponent from "../../components/globals/LoadingComponent";
 import { HiOutlineLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { userApi } from "../../redux/services/userSlice";
+import { useDispatch } from "react-redux";
+import ConfirmDialog from "../../components/globals/ConfirmDailog";
 function UserProfile() {
   const [isEdit, setIsEdit] = useState(false);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { data: user, refetch, isFetching } = useGetUserProfileQuery();
   const [update] = useUpdateUserProfileMutation();
+
+  const [showLogout, setShowLogout] = useState(false);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -33,8 +38,9 @@ function UserProfile() {
   });
 
   function logout() {
+    dispatch(userApi.util.resetApiState());
     localStorage.removeItem("accessToken");
-    navigate('/')
+    navigate("/");
   }
 
   if (isFetching) return <LoadingComponent message={"Loading Profile"} />;
@@ -47,7 +53,7 @@ function UserProfile() {
         {/* Main Card */}
         <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm border border-gray-100">
           <button
-            onClick={logout}
+            onClick={() => setShowLogout(true)}
             className="absolute top-4 right-4 z-10 flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-md hover:bg-sky-600 transition"
           >
             <HiOutlineLogout className="w-5 h-5" />
@@ -272,6 +278,13 @@ function UserProfile() {
           </form>
         </div>
       </div>
+      <ConfirmDialog
+        title={"Logout"}
+        message={"Do you want to logout?"}
+        onConfirm={logout}
+        open={showLogout}
+        onCancel={() => setShowLogout(false)}
+      />
     </div>
   );
 }

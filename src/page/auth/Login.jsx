@@ -24,10 +24,11 @@ function Login() {
     onSubmit: async (values) => {
       try {
         const response = await login(values).unwrap();
+        localStorage.setItem("accessToken", response.token);
         if (response?.user?.role) {
-          localStorage.setItem("accessToken", response.token);
+          console.log(response?.user?.role)
           if (response?.user?.role === "user") navigate("/");
-          if (response?.user?.role === "admin") navigate("/admin/dashboard");
+          else if (response?.user?.role === "admin") navigate("/admin/dashboard");
         }
       } catch (error) {
         console.error("Verification failed", error);

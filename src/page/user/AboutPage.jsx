@@ -143,7 +143,7 @@ function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-12 px-6 max-w-5xl mx-auto">
+      {/* <section className="py-12 px-6 max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-4xl font-semibold text-gray-800">Our Team</h2>
         </div>
@@ -177,7 +177,7 @@ function AboutPage() {
             <p className="text-gray-500">Frontend Developer</p>
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }

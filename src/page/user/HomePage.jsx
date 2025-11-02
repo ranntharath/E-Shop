@@ -7,6 +7,7 @@ import { useGetProductQuery } from "../../redux/services/productSlice";
 import NewProduct from "../../components/HomepageComponents/NewProduct";
 import TrendingProducts from "../../components/HomepageComponents/TrendingProducts";
 import BestSale from "../../components/HomepageComponents/BestSale";
+import { IoHardwareChip } from "react-icons/io5"; 
 import hiro from "../../assets/hiro.png";
 import pc from '../../assets/pc.png'
 import samsung from '../../assets/samsung.png'
@@ -14,10 +15,9 @@ import mac from '../../assets/macc.png'
 const categories = [
   { icon: <IoTvOutline />, label: "Computer" },
   { icon: <CiMobile2 />, label: "Mobile" },
-  { icon: <CiHeadphones />, label: "Headphone" },
   { icon: <IoWatchOutline />, label: "Watch" },
   { icon: <CiKeyboard />, label: "Keyboard" },
-  { icon: <CiHome />, label: "Home" },
+  { icon: <IoHardwareChip />, label: "Accessory" },
 ];
 
 const HomePage = () => {

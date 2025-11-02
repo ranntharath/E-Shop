@@ -6,6 +6,7 @@ import { userApi } from "./services/userSlice";
 import { cartApi } from "./services/cartSlice";
 import { orderApi } from "./services/orderSlice";
 import { dashboardApi } from "./services/dashboard";
+import { userAdmin } from "./services/userAdmin";
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
     [userApi.reducerPath]:userApi.reducer,
     [cartApi.reducerPath]:cartApi.reducer,
     [orderApi.reducerPath]:orderApi.reducer,
-    [dashboardApi.reducerPath]:dashboardApi.reducer
+    [dashboardApi.reducerPath]:dashboardApi.reducer,
+    [userAdmin.reducerPath]:userAdmin.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -23,7 +25,8 @@ export const store = configureStore({
       userApi.middleware,
       cartApi.middleware,
       orderApi.middleware,
-      dashboardApi.middleware
+      dashboardApi.middleware,
+      userAdmin.middleware
     ),
 });
 setupListeners(store.dispatch);
