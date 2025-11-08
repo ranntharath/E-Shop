@@ -29,7 +29,6 @@ function Cart({ id, image, name, description, price, qty }) {
       alert(error.data.error)
     }
 
-    
   }
 
   return (
