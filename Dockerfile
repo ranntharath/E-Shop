@@ -1,11 +1,10 @@
 FROM node:alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm i
+RUN npm install
 
 #COPY
-COPY src ./src
-COPY public ./public
+COPY . .
 RUN npm run build
 
 FROM nginx:alpine
