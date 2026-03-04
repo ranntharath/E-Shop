@@ -6,7 +6,7 @@ env:
   IMAGE_NAME: eshop-image-gcp
 jobs:
   build-and-push:
-    run-ons: ubuntu-latest
+    runs-on: ubuntu-latest
     environment: DOCKER_REPOSITORY
     steps:
       - name: Checkout Code
